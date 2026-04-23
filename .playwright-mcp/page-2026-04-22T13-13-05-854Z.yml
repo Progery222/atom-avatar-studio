@@ -1,0 +1,356 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img [ref=e7]
+          - heading "Aura Dynamics" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Оживите любой портрет с помощью глубокой экспрессивной анимации
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Кошелек
+          - generic [ref=e15]:
+            - img [ref=e16]
+            - generic [ref=e21]: 1 064
+            - generic [ref=e22]: кр
+        - button "История генераций" [ref=e24]:
+          - img [ref=e25]
+    - generic [ref=e29]:
+      - button "Seedance / Kling" [ref=e30]
+      - button "HeyGen" [ref=e31]
+      - button "HyperFrames" [active] [ref=e32]
+    - generic [ref=e231]:
+      - generic [ref=e232]:
+        - button "New" [ref=e233]:
+          - img [ref=e234]
+          - text: New
+        - button "Open" [ref=e237]:
+          - img [ref=e238]
+          - text: Open
+        - button "Save" [ref=e240]:
+          - img [ref=e241]
+          - text: Save
+        - button "Undo (Ctrl+Z)" [ref=e246]:
+          - img [ref=e247]
+        - button "Redo (Ctrl+Shift+Z)" [ref=e250]:
+          - img [ref=e251]
+        - button "Import Avatar" [ref=e255]:
+          - img [ref=e256]
+          - text: Import Avatar
+        - button "Render" [ref=e259]:
+          - img [ref=e260]
+          - text: Render
+        - generic [ref=e263] [cursor=pointer]:
+          - checkbox "Show Hints" [checked] [ref=e264]
+          - text: Show Hints
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - generic [ref=e269]: ⓘ
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - button "HTML" [ref=e273]
+                - button "CSS" [ref=e274]
+              - generic [ref=e275]:
+                - button "🔓 Edit" [ref=e276]
+                - button "💾 Save" [ref=e277]
+            - generic [ref=e280]:
+              - generic [ref=e283]: "1"
+              - textbox [ref=e286]:
+                - generic [ref=e287]: <div class="composition" style="width:1920px;height:1080px;background:#09090b;"></div>
+        - generic [ref=e288]:
+          - generic [ref=e291]: ⓘ
+          - generic [ref=e292]:
+            - iframe [ref=e295]:
+              
+            - generic [ref=e296]:
+              - button "Play" [ref=e297]:
+                - img [ref=e298]
+              - generic [ref=e300]: 0:00 / 0:10
+              - generic [ref=e301]:
+                - img [ref=e302]
+                - slider [ref=e305] [cursor=pointer]: "1"
+              - button "1x" [ref=e307]
+              - button "Fullscreen" [ref=e308]:
+                - img [ref=e309]
+      - generic [ref=e311]:
+        - generic [ref=e314]: ⓘ
+        - generic [ref=e315]:
+          - generic [ref=e317]:
+            - generic [ref=e318]: Timeline
+            - generic [ref=e319]:
+              - button "−" [ref=e320]
+              - slider [ref=e321] [cursor=pointer]: "1"
+              - button "+" [ref=e322]
+              - generic [ref=e323]: 1.0x
+          - generic [ref=e325]:
+            - generic [ref=e326]:
+              - generic [ref=e327]: 0s
+              - generic [ref=e329]: 1s
+              - generic [ref=e331]: 2s
+              - generic [ref=e333]: 3s
+              - generic [ref=e335]: 4s
+              - generic [ref=e337]: 5s
+              - generic [ref=e339]: 6s
+              - generic [ref=e341]: 7s
+              - generic [ref=e343]: 8s
+              - generic [ref=e345]: 9s
+              - generic [ref=e347]: 10s
+            - generic [ref=e349]:
+              - generic [ref=e351]:
+                - button "👁" [ref=e352]
+                - button "🔓" [ref=e353]
+                - generic [ref=e354]: Video 1
+                - 'slider "Volume: 100%" [ref=e355] [cursor=pointer]': "1"
+              - generic [ref=e357]:
+                - button "👁" [ref=e358]
+                - button "🔓" [ref=e359]
+                - generic [ref=e360]: Audio 1
+                - 'slider "Volume: 100%" [ref=e361] [cursor=pointer]': "1"
+          - button "+ Add Track" [ref=e364]:
+            - generic [ref=e365]: +
+            - text: Add Track
+      - generic [ref=e366]:
+        - generic [ref=e367]:
+          - button "Inspector" [ref=e368]
+          - button "Blocks" [ref=e369]
+          - button "Shaders" [ref=e370]
+          - button "Audio" [ref=e371]
+          - button "Export" [ref=e372]
+        - generic [ref=e374]:
+          - heading "Composition" [level=3] [ref=e375]
+          - generic [ref=e376]:
+            - button "General ▾" [ref=e377]:
+              - text: General
+              - generic [ref=e378]: ▾
+            - generic [ref=e380]:
+              - generic [ref=e381]: Name
+              - textbox "Name" [ref=e382]: Untitled
+          - generic [ref=e383]:
+            - button "Dimensions ▾" [ref=e384]:
+              - text: Dimensions
+              - generic [ref=e385]: ▾
+            - generic [ref=e386]:
+              - generic [ref=e387]:
+                - generic [ref=e388]: Width
+                - spinbutton "Width" [ref=e389]: "1920"
+              - generic [ref=e390]:
+                - generic [ref=e391]: Height
+                - spinbutton "Height" [ref=e392]: "1080"
+          - generic [ref=e393]:
+            - button "Playback ▾" [ref=e394]:
+              - text: Playback
+              - generic [ref=e395]: ▾
+            - generic [ref=e396]:
+              - generic [ref=e397]:
+                - generic [ref=e398]: FPS
+                - combobox "FPS" [ref=e399]:
+                  - option "24"
+                  - option "30" [selected]
+                  - option "60"
+              - generic [ref=e400]:
+                - generic [ref=e401]: Duration (s)
+                - spinbutton "Duration (s)" [ref=e402]: "10"
+          - generic [ref=e403]:
+            - button "Appearance ▾" [ref=e404]:
+              - text: Appearance
+              - generic [ref=e405]: ▾
+            - generic [ref=e407]:
+              - generic [ref=e408]: Background
+              - generic [ref=e409]:
+                - 'textbox "Background #09090b" [ref=e410] [cursor=pointer]': "#09090b"
+                - textbox [ref=e411]: "#09090b"
+      - generic [ref=e413]:
+        - generic [ref=e414]:
+          - generic [ref=e415]:
+            - heading "Choose a Template" [level=2] [ref=e416]
+            - paragraph [ref=e417]: Start with a preset or begin from scratch
+          - button [ref=e418]:
+            - img [ref=e419]
+        - textbox "Search templates..." [ref=e423]
+        - generic [ref=e425]:
+          - button "Blank Start from scratch with an empty composition 5s 1 1920×1080" [ref=e426] [cursor=pointer]:
+            - img [ref=e429]
+            - generic [ref=e430]:
+              - heading "Blank" [level=3] [ref=e431]
+              - paragraph [ref=e432]: Start from scratch with an empty composition
+              - generic [ref=e433]:
+                - generic [ref=e434]:
+                  - img [ref=e435]
+                  - text: 5s
+                - generic [ref=e438]:
+                  - img [ref=e439]
+                  - text: "1"
+                - generic [ref=e443]:
+                  - img [ref=e444]
+                  - text: 1920×1080
+          - button "Use Template Blank Canvas (1080p) Empty 1920×1080 composition at 30fps 10s 2 1920×1080" [ref=e446] [cursor=pointer]:
+            - generic [ref=e449]: Use Template
+            - generic [ref=e450]:
+              - heading "Blank Canvas (1080p)" [level=3] [ref=e451]
+              - paragraph [ref=e452]: Empty 1920×1080 composition at 30fps
+              - generic [ref=e453]:
+                - generic [ref=e454]:
+                  - img [ref=e455]
+                  - text: 10s
+                - generic [ref=e458]:
+                  - img [ref=e459]
+                  - text: "2"
+                - generic [ref=e463]:
+                  - img [ref=e464]
+                  - text: 1920×1080
+          - button "Use Template Blank Canvas (Vertical) Empty 1080×1920 composition for stories/reels 10s 2 1080×1920" [ref=e466] [cursor=pointer]:
+            - generic [ref=e469]: Use Template
+            - generic [ref=e470]:
+              - heading "Blank Canvas (Vertical)" [level=3] [ref=e471]
+              - paragraph [ref=e472]: Empty 1080×1920 composition for stories/reels
+              - generic [ref=e473]:
+                - generic [ref=e474]:
+                  - img [ref=e475]
+                  - text: 10s
+                - generic [ref=e478]:
+                  - img [ref=e479]
+                  - text: "2"
+                - generic [ref=e483]:
+                  - img [ref=e484]
+                  - text: 1080×1920
+          - button "Your Title Your message here Use Template Social Story Instagram/TikTok story with text overlay and gradient background 5s 1 1080×1920" [ref=e486] [cursor=pointer]:
+            - generic [ref=e487]:
+              - generic:
+                - generic:
+                  - heading "Your Title" [level=1]
+                  - paragraph: Your message here
+              - generic [ref=e489]: Use Template
+            - generic [ref=e490]:
+              - heading "Social Story" [level=3] [ref=e491]
+              - paragraph [ref=e492]: Instagram/TikTok story with text overlay and gradient background
+              - generic [ref=e493]:
+                - generic [ref=e494]:
+                  - img [ref=e495]
+                  - text: 5s
+                - generic [ref=e498]:
+                  - img [ref=e499]
+                  - text: "1"
+                - generic [ref=e503]:
+                  - img [ref=e504]
+                  - text: 1080×1920
+          - button "INTRODUCING Product Name Key features and benefits listed here Get Started Today Learn More Use Template Promo Video (Horizontal) Product promo with intro, features, and CTA sections 13s 2 1920×1080" [ref=e506] [cursor=pointer]:
+            - generic [ref=e507]:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "INTRODUCING" [level=2]
+                    - heading "Product Name" [level=1]
+                  - generic:
+                    - paragraph: Key features and benefits listed here
+                  - generic:
+                    - heading "Get Started Today" [level=2]
+                    - generic: Learn More
+              - generic [ref=e509]: Use Template
+            - generic [ref=e510]:
+              - heading "Promo Video (Horizontal)" [level=3] [ref=e511]
+              - paragraph [ref=e512]: Product promo with intro, features, and CTA sections
+              - generic [ref=e513]:
+                - generic [ref=e514]:
+                  - img [ref=e515]
+                  - text: 13s
+                - generic [ref=e518]:
+                  - img [ref=e519]
+                  - text: "2"
+                - generic [ref=e523]:
+                  - img [ref=e524]
+                  - text: 1920×1080
+          - button "TITLE A Story Use Template Cinematic Title Sequence Elegant film-style title card with serif typography 5s 2 1920×1080" [ref=e526] [cursor=pointer]:
+            - generic [ref=e527]:
+              - generic:
+                - generic:
+                  - heading "TITLE" [level=1]
+                  - paragraph: A Story
+              - generic [ref=e529]: Use Template
+            - generic [ref=e530]:
+              - heading "Cinematic Title Sequence" [level=3] [ref=e531]
+              - paragraph [ref=e532]: Elegant film-style title card with serif typography
+              - generic [ref=e533]:
+                - generic [ref=e534]:
+                  - img [ref=e535]
+                  - text: 5s
+                - generic [ref=e538]:
+                  - img [ref=e539]
+                  - text: "2"
+                - generic [ref=e543]:
+                  - img [ref=e544]
+                  - text: 1920×1080
+          - button "1,234 TOTAL USERS Use Template Data Dashboard Animated stats and metrics display 5s 1 1920×1080" [ref=e546] [cursor=pointer]:
+            - generic [ref=e547]:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: 1,234
+                    - generic: TOTAL USERS
+              - generic [ref=e549]: Use Template
+            - generic [ref=e550]:
+              - heading "Data Dashboard" [level=3] [ref=e551]
+              - paragraph [ref=e552]: Animated stats and metrics display
+              - generic [ref=e553]:
+                - generic [ref=e554]:
+                  - img [ref=e555]
+                  - text: 5s
+                - generic [ref=e558]:
+                  - img [ref=e559]
+                  - text: "1"
+                - generic [ref=e563]:
+                  - img [ref=e564]
+                  - text: 1920×1080
+          - button "— Peter Drucker Use Template Quote Card Elegant quotation with attribution on dark background 5s 1 1920×1080" [ref=e566] [cursor=pointer]:
+            - generic [ref=e567]:
+              - generic:
+                - generic:
+                  - blockquote: "\"The best way to predict the future is to create it.\""
+                  - paragraph: — Peter Drucker
+              - generic [ref=e569]: Use Template
+            - generic [ref=e570]:
+              - heading "Quote Card" [level=3] [ref=e571]
+              - paragraph [ref=e572]: Elegant quotation with attribution on dark background
+              - generic [ref=e573]:
+                - generic [ref=e574]:
+                  - img [ref=e575]
+                  - text: 5s
+                - generic [ref=e578]:
+                  - img [ref=e579]
+                  - text: "1"
+                - generic [ref=e583]:
+                  - img [ref=e584]
+                  - text: 1920×1080
+          - button "Slide Title First key point Second key point Third key point Use Template Presentation Slide Clean slide with title and bullet points 5s 1 1920×1080" [ref=e586] [cursor=pointer]:
+            - generic [ref=e587]:
+              - generic:
+                - generic:
+                  - heading "Slide Title" [level=1]
+                  - list:
+                    - listitem: First key point
+                    - listitem: Second key point
+                    - listitem: Third key point
+              - generic [ref=e589]: Use Template
+            - generic [ref=e590]:
+              - heading "Presentation Slide" [level=3] [ref=e591]
+              - paragraph [ref=e592]: Clean slide with title and bullet points
+              - generic [ref=e593]:
+                - generic [ref=e594]:
+                  - img [ref=e595]
+                  - text: 5s
+                - generic [ref=e598]:
+                  - img [ref=e599]
+                  - text: "1"
+                - generic [ref=e603]:
+                  - img [ref=e604]
+                  - text: 1920×1080
+      - generic [ref=e607]:
+        - generic [ref=e609]: Step 1 of 8
+        - heading "Welcome to HyperFrames" [level=3] [ref=e610]
+        - paragraph [ref=e611]: HyperFrames is a timeline-based video composition editor. Create rich HTML compositions, add avatar videos, and render to MP4 — all in the browser.
+        - generic [ref=e621]:
+          - button "Skip All" [ref=e622]
+          - button "Next" [ref=e624]
+  - button "Open Next.js Dev Tools" [ref=e224] [cursor=pointer]:
+    - img [ref=e225]
+  - alert [ref=e229]

@@ -1,0 +1,453 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img [ref=e7]
+          - heading "Aura Dynamics" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Оживите любой портрет с помощью глубокой экспрессивной анимации
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Кошелек
+          - generic [ref=e15]:
+            - img [ref=e16]
+            - generic [ref=e21]: 1 064
+            - generic [ref=e22]: кр
+        - button "История генераций" [ref=e24]:
+          - img [ref=e25]
+    - generic [ref=e29]:
+      - button "Seedance / Kling" [ref=e30]
+      - button "HeyGen" [ref=e31]
+      - button "HyperFrames" [ref=e32]
+    - generic [ref=e231]:
+      - generic [ref=e232]:
+        - button "New" [ref=e233]:
+          - img [ref=e234]
+          - text: New
+        - button "Open" [ref=e237]:
+          - img [ref=e238]
+          - text: Open
+        - button "Save" [ref=e240]:
+          - img [ref=e241]
+          - text: Save
+        - button "Undo (Ctrl+Z)" [ref=e246]:
+          - img [ref=e247]
+        - button "Redo (Ctrl+Shift+Z)" [ref=e250]:
+          - img [ref=e251]
+        - button "Import Avatar" [ref=e255]:
+          - img [ref=e256]
+          - text: Import Avatar
+        - button "Render" [ref=e259]:
+          - img [ref=e260]
+          - text: Render
+        - generic [ref=e263] [cursor=pointer]:
+          - checkbox "Show Hints" [checked] [ref=e264]
+          - text: Show Hints
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - generic [ref=e269]: ⓘ
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - button "HTML" [ref=e273]
+                - button "CSS" [ref=e274]
+              - generic [ref=e275]:
+                - button "🔓 Edit" [ref=e276]
+                - button "💾 Save" [ref=e277]
+            - generic [ref=e280]:
+              - generic [ref=e627]: "1"
+              - textbox [ref=e286]:
+                - generic [ref=e630]: <div class="composition" style="width:1920px;height:1080px;background:#09090b;"></div>
+        - generic [ref=e288]:
+          - generic [ref=e291]: ⓘ
+          - generic [ref=e292]:
+            - iframe [ref=e295]:
+              
+            - generic [ref=e296]:
+              - button "Play" [ref=e297]:
+                - img [ref=e298]
+              - generic [ref=e300]: 0:00 / 0:10
+              - generic [ref=e301]:
+                - img [ref=e302]
+                - slider [ref=e305] [cursor=pointer]: "1"
+              - button "1x" [ref=e307]
+              - button "Fullscreen" [ref=e308]:
+                - img [ref=e309]
+      - generic [ref=e311]:
+        - generic [ref=e314]: ⓘ
+        - generic [ref=e315]:
+          - generic [ref=e317]:
+            - generic [ref=e318]: Timeline
+            - generic [ref=e319]:
+              - button "−" [ref=e320]
+              - slider [ref=e321] [cursor=pointer]: "1"
+              - button "+" [ref=e322]
+              - generic [ref=e323]: 1.0x
+          - generic [ref=e325]:
+            - generic [ref=e326]:
+              - generic [ref=e327]: 0s
+              - generic [ref=e329]: 1s
+              - generic [ref=e331]: 2s
+              - generic [ref=e333]: 3s
+              - generic [ref=e335]: 4s
+              - generic [ref=e337]: 5s
+            - generic [ref=e351]:
+              - button "👁" [ref=e352]
+              - button "🔓" [ref=e353]
+              - generic [ref=e354]: Video 1
+              - 'slider "Volume: 100%" [ref=e355] [cursor=pointer]': "1"
+          - button "+ Add Track" [ref=e364]:
+            - generic [ref=e365]: +
+            - text: Add Track
+      - generic [ref=e366]:
+        - generic [ref=e367]:
+          - button "Inspector" [ref=e368]
+          - button "Blocks" [active] [ref=e369]
+          - button "Shaders" [ref=e370]
+          - button "Audio" [ref=e371]
+          - button "Export" [ref=e372]
+        - generic [ref=e631]:
+          - generic [ref=e632]:
+            - img
+            - textbox "Search blocks..." [ref=e633]
+          - generic [ref=e634]:
+            - button "All" [ref=e635]
+            - button "Social" [ref=e636]:
+              - img [ref=e637]
+              - text: Social
+            - button "Cinematic" [ref=e642]:
+              - img [ref=e643]
+              - text: Cinematic
+            - button "Data Viz" [ref=e645]:
+              - img [ref=e646]
+              - text: Data Viz
+            - button "Text" [ref=e648]:
+              - img [ref=e649]
+              - text: Text
+            - button "Transition" [ref=e651]:
+              - img [ref=e652]
+              - text: Transition
+            - button "Overlay" [ref=e655]:
+              - img [ref=e656]
+              - text: Overlay
+            - button "Template" [ref=e660]:
+              - img [ref=e661]
+              - text: Template
+          - generic [ref=e666]:
+            - generic [ref=e667]:
+              - button "Your Title Your message here" [ref=e668] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Your Title" [level=2]
+                      - paragraph: Your message here
+                - img [ref=e670]
+              - generic [ref=e673]:
+                - generic [ref=e674]:
+                  - heading "Instagram Story" [level=4] [ref=e675]
+                  - img [ref=e677]
+                - paragraph [ref=e682]: Full-screen vertical story format with text overlay
+                - generic [ref=e683]:
+                  - generic [ref=e684]: social
+                  - generic [ref=e685]: instagram
+                  - generic [ref=e686]: story
+                - button "Insert" [ref=e687]:
+                  - img [ref=e688]
+                  - text: Insert
+            - generic [ref=e689]:
+              - button "🎬 Channel Name Subscribe for more" [ref=e690] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic: 🎬
+                    - heading "Channel Name" [level=1]
+                    - paragraph: Subscribe for more
+                - img [ref=e692]
+              - generic [ref=e695]:
+                - generic [ref=e696]:
+                  - heading "YouTube Intro" [level=4] [ref=e697]
+                  - img [ref=e699]
+                - paragraph [ref=e704]: Animated channel intro with logo and title
+                - generic [ref=e705]:
+                  - generic [ref=e706]: social
+                  - generic [ref=e707]: youtube
+                  - generic [ref=e708]: intro
+                - button "Insert" [ref=e709]:
+                  - img [ref=e710]
+                  - text: Insert
+            - generic [ref=e711]:
+              - button "✨ Your caption here ✨" [ref=e712] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: ✨ Your caption here ✨
+                - img [ref=e714]
+              - generic [ref=e717]:
+                - generic [ref=e718]:
+                  - heading "TikTok Frame" [level=4] [ref=e719]
+                  - img [ref=e721]
+                - paragraph [ref=e726]: Vertical video frame with caption overlay
+                - generic [ref=e727]:
+                  - generic [ref=e728]: social
+                  - generic [ref=e729]: tiktok
+                  - generic [ref=e730]: vertical
+                - button "Insert" [ref=e731]:
+                  - img [ref=e732]
+                  - text: Insert
+            - generic [ref=e733]:
+              - button "TITLE A Story" [ref=e734] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - heading "TITLE" [level=1]
+                    - paragraph: A Story
+                - img [ref=e736]
+              - generic [ref=e739]:
+                - generic [ref=e740]:
+                  - heading "Cinematic Title Card" [level=4] [ref=e741]
+                  - img [ref=e743]
+                - paragraph [ref=e745]: Elegant title card with fade-in animation
+                - generic [ref=e746]:
+                  - generic [ref=e747]: cinematic
+                  - generic [ref=e748]: title
+                  - generic [ref=e749]: elegant
+                - button "Insert" [ref=e750]:
+                  - img [ref=e751]
+                  - text: Insert
+            - generic [ref=e752]:
+              - button "John Doe Creative Director" [ref=e753] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "John Doe" [level=3]
+                      - paragraph: Creative Director
+                - img [ref=e755]
+              - generic [ref=e758]:
+                - generic [ref=e759]:
+                  - heading "Lower Third" [level=4] [ref=e760]
+                  - img [ref=e762]
+                - paragraph [ref=e764]: Professional lower third name/title overlay
+                - generic [ref=e765]:
+                  - generic [ref=e766]: cinematic
+                  - generic [ref=e767]: lower-third
+                  - generic [ref=e768]: name
+                - button "Insert" [ref=e769]:
+                  - img [ref=e770]
+                  - text: Insert
+            - generic [ref=e771]:
+              - button "Directed By Jane Smith Produced By John Doe" [ref=e772] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Directed By" [level=3]
+                      - paragraph: Jane Smith
+                    - generic:
+                      - heading "Produced By" [level=3]
+                      - paragraph: John Doe
+                - img [ref=e774]
+              - generic [ref=e777]:
+                - generic [ref=e778]:
+                  - heading "End Credits" [level=4] [ref=e779]
+                  - img [ref=e781]
+                - paragraph [ref=e783]: Scrolling end credits with role sections
+                - generic [ref=e784]:
+                  - generic [ref=e785]: cinematic
+                  - generic [ref=e786]: credits
+                  - generic [ref=e787]: scroll
+                - button "Insert" [ref=e788]:
+                  - img [ref=e789]
+                  - text: Insert
+            - generic [ref=e790]:
+              - button "Q1 Q2 Q3 Q4" [ref=e791] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: Q1
+                      - generic:
+                        - generic: Q2
+                      - generic:
+                        - generic: Q3
+                      - generic:
+                        - generic: Q4
+                - img [ref=e793]
+              - generic [ref=e796]:
+                - generic [ref=e797]:
+                  - heading "Bar Chart" [level=4] [ref=e798]
+                  - img [ref=e800]
+                - paragraph [ref=e802]: Animated bar chart with labels
+                - generic [ref=e803]:
+                  - generic [ref=e804]: data-viz
+                  - generic [ref=e805]: chart
+                  - generic [ref=e806]: bar
+                - button "Insert" [ref=e807]:
+                  - img [ref=e808]
+                  - text: Insert
+            - generic [ref=e809]:
+              - button "1,234 Total Users" [ref=e810] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic: 1,234
+                    - generic: Total Users
+                - img [ref=e812]
+              - generic [ref=e815]:
+                - generic [ref=e816]:
+                  - heading "Stat Card" [level=4] [ref=e817]
+                  - img [ref=e819]
+                - paragraph [ref=e821]: Large number stat card with label
+                - generic [ref=e822]:
+                  - generic [ref=e823]: data-viz
+                  - generic [ref=e824]: stat
+                  - generic [ref=e825]: number
+                - button "Insert" [ref=e826]:
+                  - img [ref=e827]
+                  - text: Insert
+            - generic [ref=e828]:
+              - button "Your Heading Optional subtitle text" [ref=e829] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - heading "Your Heading" [level=1]
+                    - paragraph: Optional subtitle text
+                - img [ref=e831]
+              - generic [ref=e834]:
+                - generic [ref=e835]:
+                  - heading "Centered Heading" [level=4] [ref=e836]
+                  - img [ref=e838]
+                - paragraph [ref=e840]: Large centered heading with optional subtitle
+                - generic [ref=e841]:
+                  - generic [ref=e842]: text
+                  - generic [ref=e843]: heading
+                  - generic [ref=e844]: title
+                - button "Insert" [ref=e845]:
+                  - img [ref=e846]
+                  - text: Insert
+            - generic [ref=e847]:
+              - button "— Peter Drucker" [ref=e848] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - blockquote: "\"The best way to predict the future is to create it.\""
+                    - paragraph: — Peter Drucker
+                - img [ref=e850]
+              - generic [ref=e853]:
+                - generic [ref=e854]:
+                  - heading "Quote Block" [level=4] [ref=e855]
+                  - img [ref=e857]
+                - paragraph [ref=e859]: Stylized quotation with attribution
+                - generic [ref=e860]:
+                  - generic [ref=e861]: text
+                  - generic [ref=e862]: quote
+                  - generic [ref=e863]: attribution
+                - button "Insert" [ref=e864]:
+                  - img [ref=e865]
+                  - text: Insert
+            - generic [ref=e866]:
+              - button "Hello World. This text types itself." [ref=e867] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - paragraph: Hello World. This text types itself.
+                - img [ref=e869]
+              - generic [ref=e872]:
+                - generic [ref=e873]:
+                  - heading "Typewriter Effect" [level=4] [ref=e874]
+                  - img [ref=e876]
+                - paragraph [ref=e878]: Text that appears character by character
+                - generic [ref=e879]:
+                  - generic [ref=e880]: text
+                  - generic [ref=e881]: typewriter
+                  - generic [ref=e882]: animation
+                - button "Insert" [ref=e883]:
+                  - img [ref=e884]
+                  - text: Insert
+            - generic [ref=e885]:
+              - button [ref=e886] [cursor=pointer]:
+                - img [ref=e888]
+              - generic [ref=e891]:
+                - generic [ref=e892]:
+                  - heading "Fade to Black" [level=4] [ref=e893]
+                  - img [ref=e895]
+                - paragraph [ref=e898]: Classic fade through black transition
+                - generic [ref=e899]:
+                  - generic [ref=e900]: transition
+                  - generic [ref=e901]: fade
+                  - generic [ref=e902]: black
+                - button "Insert" [ref=e903]:
+                  - img [ref=e904]
+                  - text: Insert
+            - generic [ref=e905]:
+              - button [ref=e906] [cursor=pointer]:
+                - img [ref=e908]
+              - generic [ref=e911]:
+                - generic [ref=e912]:
+                  - heading "Gradient Overlay" [level=4] [ref=e913]
+                  - img [ref=e915]
+                - paragraph [ref=e919]: Semi-transparent gradient overlay for text readability
+                - generic [ref=e920]:
+                  - generic [ref=e921]: overlay
+                  - generic [ref=e922]: gradient
+                  - generic [ref=e923]: text
+                - button "Insert" [ref=e924]:
+                  - img [ref=e925]
+                  - text: Insert
+            - generic [ref=e926]:
+              - button [ref=e927] [cursor=pointer]:
+                - img [ref=e929]
+              - generic [ref=e932]:
+                - generic [ref=e933]:
+                  - heading "Vignette" [level=4] [ref=e934]
+                  - img [ref=e936]
+                - paragraph [ref=e940]: Dark vignette around edges for cinematic feel
+                - generic [ref=e941]:
+                  - generic [ref=e942]: overlay
+                  - generic [ref=e943]: vignette
+                  - generic [ref=e944]: cinematic
+                - button "Insert" [ref=e945]:
+                  - img [ref=e946]
+                  - text: Insert
+            - generic [ref=e947]:
+              - button "Introducing Product Name Key features and benefits listed here Get Started Today Learn More" [ref=e948] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - heading "Introducing" [level=1]
+                      - heading "Product Name" [level=2]
+                    - generic:
+                      - paragraph: Key features and benefits listed here
+                    - generic:
+                      - heading "Get Started Today" [level=2]
+                      - button "Learn More"
+                - img [ref=e950]
+              - generic [ref=e953]:
+                - generic [ref=e954]:
+                  - heading "Promo Video" [level=4] [ref=e955]
+                  - img [ref=e957]
+                - paragraph [ref=e961]: Complete promo video template with intro, content, and CTA
+                - generic [ref=e962]:
+                  - generic [ref=e963]: template
+                  - generic [ref=e964]: promo
+                  - generic [ref=e965]: marketing
+                - button "Insert" [ref=e966]:
+                  - img [ref=e967]
+                  - text: Insert
+            - generic [ref=e968]:
+              - button "Slide Title First key point Second key point Third key point" [ref=e969] [cursor=pointer]:
+                - generic:
+                  - generic:
+                    - heading "Slide Title" [level=1]
+                    - list:
+                      - listitem: First key point
+                      - listitem: Second key point
+                      - listitem: Third key point
+                - img [ref=e971]
+              - generic [ref=e974]:
+                - generic [ref=e975]:
+                  - heading "Presentation Slide" [level=4] [ref=e976]
+                  - img [ref=e978]
+                - paragraph [ref=e982]: Clean presentation slide with title and bullet points
+                - generic [ref=e983]:
+                  - generic [ref=e984]: template
+                  - generic [ref=e985]: presentation
+                  - generic [ref=e986]: slide
+                - button "Insert" [ref=e987]:
+                  - img [ref=e988]
+                  - text: Insert
+  - button "Open Next.js Dev Tools" [ref=e224] [cursor=pointer]:
+    - img [ref=e225]
+  - alert [ref=e229]

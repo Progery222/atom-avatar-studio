@@ -1,0 +1,143 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img [ref=e7]
+          - heading "Aura Dynamics" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Оживите любой портрет с помощью глубокой экспрессивной анимации
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Кошелек
+          - generic [ref=e15]:
+            - img [ref=e16]
+            - generic [ref=e21]: 1 064
+            - generic [ref=e22]: кр
+        - button "История генераций" [ref=e24]:
+          - img [ref=e25]
+    - generic [ref=e29]:
+      - button "Seedance / Kling" [ref=e30]
+      - button "HeyGen" [ref=e31]
+      - button "HyperFrames" [ref=e32]
+    - generic [ref=e231]:
+      - generic [ref=e232]:
+        - button "New" [ref=e233]:
+          - img [ref=e234]
+          - text: New
+        - button "Open" [ref=e237]:
+          - img [ref=e238]
+          - text: Open
+        - button "Save" [ref=e240]:
+          - img [ref=e241]
+          - text: Save
+        - button "Undo (Ctrl+Z)" [ref=e246]:
+          - img [ref=e247]
+        - button "Redo (Ctrl+Shift+Z)" [ref=e250]:
+          - img [ref=e251]
+        - button "Import Avatar" [ref=e255]:
+          - img [ref=e256]
+          - text: Import Avatar
+        - button "Render" [ref=e259]:
+          - img [ref=e260]
+          - text: Render
+        - generic [ref=e263] [cursor=pointer]:
+          - checkbox "Show Hints" [checked] [ref=e264]
+          - text: Show Hints
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - generic [ref=e269]: ⓘ
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - button "HTML" [ref=e273]
+                - button "CSS" [ref=e274]
+              - generic [ref=e275]:
+                - button "🔓 Edit" [ref=e276]
+                - button "💾 Save" [ref=e277]
+            - generic [ref=e280]:
+              - generic [ref=e627]: "1"
+              - textbox [ref=e286]:
+                - generic [ref=e630]: <div class="composition" style="width:1920px;height:1080px;background:#09090b;"></div>
+        - generic [ref=e288]:
+          - generic [ref=e291]: ⓘ
+          - generic [ref=e292]:
+            - iframe [ref=e295]:
+              
+            - generic [ref=e296]:
+              - button "Play" [ref=e297]:
+                - img [ref=e298]
+              - generic [ref=e300]: 0:00 / 0:10
+              - generic [ref=e301]:
+                - img [ref=e302]
+                - slider [ref=e305] [cursor=pointer]: "1"
+              - button "1x" [ref=e307]
+              - button "Fullscreen" [ref=e308]:
+                - img [ref=e309]
+      - generic [ref=e311]:
+        - generic [ref=e314]: ⓘ
+        - generic [ref=e315]:
+          - generic [ref=e317]:
+            - generic [ref=e318]: Timeline
+            - generic [ref=e319]:
+              - button "−" [ref=e320]
+              - slider [ref=e321] [cursor=pointer]: "1"
+              - button "+" [ref=e322]
+              - generic [ref=e323]: 1.0x
+          - generic [ref=e325]:
+            - generic [ref=e326]:
+              - generic [ref=e327]: 0s
+              - generic [ref=e329]: 1s
+              - generic [ref=e331]: 2s
+              - generic [ref=e333]: 3s
+              - generic [ref=e335]: 4s
+              - generic [ref=e337]: 5s
+            - generic [ref=e351]:
+              - button "👁" [ref=e352]
+              - button "🔓" [ref=e353]
+              - generic [ref=e354]: Video 1
+              - 'slider "Volume: 100%" [ref=e355] [cursor=pointer]': "1"
+          - button "+ Add Track" [ref=e364]:
+            - generic [ref=e365]: +
+            - text: Add Track
+      - generic [ref=e366]:
+        - generic [ref=e367]:
+          - button "Inspector" [ref=e368]
+          - button "Blocks" [ref=e369]
+          - button "Shaders" [ref=e370]
+          - button "Audio" [ref=e371]
+          - button "Export" [active] [ref=e372]
+        - generic [ref=e1235]:
+          - generic [ref=e1236]:
+            - heading "Render Settings" [level=3] [ref=e1237]:
+              - img [ref=e1238]
+              - text: Render Settings
+            - generic [ref=e1240]:
+              - generic [ref=e1241]:
+                - generic [ref=e1242]: Resolution
+                - combobox [ref=e1243]:
+                  - option "720p (1280×720)"
+                  - option "1080p (1920×1080)" [selected]
+              - generic [ref=e1244]:
+                - generic [ref=e1245]: FPS
+                - combobox [ref=e1246]:
+                  - option "24 fps"
+                  - option "30 fps" [selected]
+                  - option "60 fps"
+              - generic [ref=e1247]:
+                - generic [ref=e1248]: Quality
+                - combobox [ref=e1249]:
+                  - option "Low"
+                  - option "Medium"
+                  - option "High" [selected]
+              - generic [ref=e1250]:
+                - generic [ref=e1251]: Format
+                - generic [ref=e1252]: MP4
+              - generic [ref=e1253]:
+                - generic [ref=e1254]: Codec
+                - generic [ref=e1255]: H.264
+          - button "Render Video" [ref=e1256]:
+            - img [ref=e1257]
+            - text: Render Video
+  - button "Open Next.js Dev Tools" [ref=e224] [cursor=pointer]:
+    - img [ref=e225]
+  - alert [ref=e229]

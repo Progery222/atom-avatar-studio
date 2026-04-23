@@ -1,0 +1,106 @@
+{
+  "active_plan": "C:\\Projects\\3d-avatar-generate\\.sisyphus\\plans\\hyperframes-integration.md",
+  "started_at": "2026-04-22T09:05:40.356Z",
+  "session_ids": [
+    "ses_24bb17341ffemymy9azAUq78x7",
+    "ses_24aca1bd8ffeLhAJ4RMN2bY5C1",
+    "ses_24ac8b75bffePHceTbOXE2vogr",
+    "ses_24ac78accffeoYWhc096AQyVUX",
+    "ses_24ac66090ffepF5CN9UIh7SZAz",
+    "ses_24ab2c0a8ffeFVri0Qqt0jH5Nq",
+    "ses_24ab28950ffet8pwtJPaCVY5lP"
+  ],
+  "session_origins": {
+    "ses_24bb17341ffemymy9azAUq78x7": "direct",
+    "ses_24aca1bd8ffeLhAJ4RMN2bY5C1": "appended",
+    "ses_24ac8b75bffePHceTbOXE2vogr": "appended",
+    "ses_24ac78accffeoYWhc096AQyVUX": "appended",
+    "ses_24ac66090ffepF5CN9UIh7SZAz": "appended",
+    "ses_24ab2c0a8ffeFVri0Qqt0jH5Nq": "appended",
+    "ses_24ab28950ffet8pwtJPaCVY5lP": "appended"
+  },
+  "plan_name": "hyperframes-integration",
+  "agent": "atlas",
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "Install HyperFrames Dependencies",
+      "session_id": "ses_24b84feb2ffeBEWZSXBIOiZkos",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-22T09:36:42.719Z"
+    },
+    "todo:8": {
+      "task_key": "todo:8",
+      "task_label": "8",
+      "task_title": "CodeMirror Editor Component (HTML/CSS Editing)",
+      "session_id": "ses_24b23247cfferXqnkGJzz5qDnh",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T11:06:38.648Z"
+    },
+    "todo:15": {
+      "task_key": "todo:15",
+      "task_label": "15",
+      "task_title": "Block Catalog Browser (Search, Filter, Preview, Insert)",
+      "session_id": "ses_24b0a7689ffeyzVQKK8GbcHNKT",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T11:37:40.811Z"
+    },
+    "todo:20": {
+      "task_key": "todo:20",
+      "task_label": "20",
+      "task_title": "Avatar Video Import Workflow",
+      "session_id": "ses_24afb36d1ffeF7x0G4Igh7N377",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T11:53:44.973Z"
+    },
+    "todo:21": {
+      "task_key": "todo:21",
+      "task_label": "21",
+      "task_title": "Main HyperFrames Tab Layout (Compose All Sub-Panels)",
+      "session_id": "ses_24af3f554ffeT5ivp3RruvorIw",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T12:08:30.858Z"
+    },
+    "todo:22": {
+      "task_key": "todo:22",
+      "task_label": "22",
+      "task_title": "Onboarding Wizard Component (First-Visit Flow)",
+      "session_id": "ses_24adfa9f0ffeUNmxy25MmBDP36",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T12:19:59.919Z"
+    },
+    "final-wave:f1": {
+      "task_key": "final-wave:f1",
+      "task_label": "F1",
+      "task_title": "**Plan Compliance Audit** — `oracle`",
+      "session_id": "ses_24aca1bd8ffeLhAJ4RMN2bY5C1",
+      "agent": "oracle",
+      "updated_at": "2026-04-22T12:47:46.842Z"
+    },
+    "final-wave:f2": {
+      "task_key": "final-wave:f2",
+      "task_label": "F2",
+      "task_title": "**Code Quality Review** — `unspecified-high`",
+      "session_id": "ses_24ab41360ffeZpYvgRTXgQFi7V",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-04-22T13:06:26.451Z"
+    },
+    "final-wave:f3": {
+      "task_key": "final-wave:f3",
+      "task_label": "F3",
+      "task_title": "**Real Manual QA** — `unspecified-high` (+ `playwright` skill)",
+      "session_id": "ses_24ab28950ffet8pwtJPaCVY5lP",
+      "agent": "Sisyphus-Junior",
+      "category": "deep",
+      "updated_at": "2026-04-22T13:18:07.820Z"
+    }
+  }
+}

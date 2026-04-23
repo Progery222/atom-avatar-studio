@@ -1,0 +1,5 @@
+Command: npx tsc --noEmit --strict src/types/heygen.ts
+Result: success (no output)
+
+Command: Select-String -Pattern "export" -Path "src/types/heygen.ts"
+Result: 10 export declarations found

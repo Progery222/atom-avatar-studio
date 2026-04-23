@@ -1,0 +1,45 @@
+{
+    "mcpServers": {
+        "context7": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@upstash/context7-mcp",
+                "--api-key",
+                "YOUR_API_KEY"
+            ]
+        },
+        "shadcn": {
+            "command": "npx",
+            "args": [
+                "shadcn@latest",
+                "mcp"
+            ]
+        },
+        "supabase": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "supabase-community/supabase-mcp",
+                "--project-ref",
+                "sqlyyvaebbqgljjmaacz",
+                "--access-token",
+                "sbp_ce11977a393606869c9f1feda61832131f721e6e"
+            ]
+        },
+        "firecrawl": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "fc-d541a90789794395968784ce26154fbb"
+            }
+        }
+        //other mcp servers
+    }
+}
+
+// setup mcp server in  ~/.gemini\antigravity\mcp_config.json
+
