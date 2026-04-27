@@ -7,9 +7,13 @@ export interface HistoryItem {
   modelName: string;
   status: 'pending' | 'success' | 'fail';
   cost: number | null;
-  provider?: 'kie' | 'heygen';
+  provider?: 'kie' | 'heygen' | 'gpt-image';
   inputImageUrl?: string;
   resultVideoUrl?: string | null;
+  resultImageUrl?: string;
+  generationType?: 'video' | 'image';
+  aspectRatio?: string;
+  resolution?: string;
   params: {
     emotion: string;
     camera: string;

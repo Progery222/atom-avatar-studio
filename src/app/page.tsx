@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, FileAudio, Play, Loader2, Download, Video, Settings2, ChevronDown, Monitor, Maximize, Clock, Search, ShieldCheck, Bug, Timer, User, UserCheck, Wallet, Coins, Activity, RefreshCw, Sparkles, Volume2, Wand2, History, Trash2, X, ExternalLink, Film } from "lucide-react";
+import { Upload, FileAudio, Play, Loader2, Download, Video, Settings2, ChevronDown, Monitor, Maximize, Clock, Search, ShieldCheck, Bug, Timer, User, UserCheck, Wallet, Coins, Activity, RefreshCw, Sparkles, Volume2, Wand2, History, Trash2, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { uploadFileToSupabase } from "@/lib/supabase";
 import { AI_MODELS, CAMERA_EFFECTS } from "@/constants/models";
@@ -11,19 +11,14 @@ import { GEMINI_FLASH_DEFAULT_CONFIG } from "@/constants/gemini-flash-tts";
 import { Smile, Frown, VenetianMask, Zap, Sun, Moon, Palette, CloudSun } from "lucide-react";
 import { historyService, HistoryItem } from "@/lib/history-service";
 import HeyGenTab from "@/components/heygen-tab";
-import HyperFramesTab from "@/components/hyperframes-tab";
+import GptImageTab from "@/components/gpt-image-tab";
 import GeminiFlashTTSSettings from "@/components/GeminiFlashTTSSettings";
 import TTSPreview from "@/components/TTSPreview";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"seedance" | "heygen" | "hyperframes">("seedance");
-
-  // Cross-tab: switch to HyperFrames when avatar import event fires
-  useEffect(() => {
-    const handler = () => setActiveTab("hyperframes");
-    window.addEventListener("import-to-hyperframes", handler);
-    return () => window.removeEventListener("import-to-hyperframes", handler);
-  }, []);
+  const [activeCategory, setActiveCategory] = useState<'video' | 'images'>('video');
+  const [videoSubTab, setVideoSubTab] = useState<'seedance' | 'kling' | 'heygen'>('seedance');
+  const [imageSubTab, setImageSubTab] = useState<'text-to-image' | 'image-to-image'>('text-to-image');
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -68,6 +63,17 @@ export default function Home() {
 
   const selectedModel = AI_MODELS.find(m => m.id === modelId) || AI_MODELS[0];
 
+  // Auto-select first model when switching video sub-tabs
+  useEffect(() => {
+    if (videoSubTab === 'seedance') {
+      const seedanceModel = AI_MODELS.find(m => m.provider === 'bytedance');
+      if (seedanceModel) setModelId(seedanceModel.id);
+    } else if (videoSubTab === 'kling') {
+      const klingModel = AI_MODELS.find(m => m.provider === 'kling');
+      if (klingModel) setModelId(klingModel.id);
+    }
+  }, [videoSubTab]);
+
   // Reset resolutions and aspect ratios when switching models
   useEffect(() => {
     // Set default resolution to 480p for Seedance, else first available
@@ -107,6 +113,7 @@ export default function Home() {
   const [balance, setBalance] = useState<number | null>(null);
   const [balanceBefore, setBalanceBefore] = useState<number | null>(null);
   const [heygenBalance, setHeygenBalance] = useState<string | null>(null);
+  const [gptImageCredits, setGptImageCredits] = useState<number | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
 
@@ -146,6 +153,18 @@ export default function Home() {
       }
     } catch (err) {
       console.error("Failed to fetch HeyGen balance", err);
+    }
+  };
+
+  const fetchGptImageCredits = async () => {
+    try {
+      const res = await fetch("/api/gpt-image/credits");
+      const result = await res.json();
+      if (result.success && typeof result.data === 'number') {
+        setGptImageCredits(result.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch GPT Image credits", err);
     }
   };
 
@@ -222,6 +241,7 @@ export default function Home() {
   useEffect(() => {
     fetchBalance();
     fetchHeygenBalance();
+    fetchGptImageCredits();
   }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -580,7 +600,7 @@ export default function Home() {
             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
               <Video className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white">Aura Dynamics</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">Atom Studio Avatar</h1>
           </div>
           <p className="text-white/40 text-sm max-w-sm">
             Оживите любой портрет с помощью глубокой экспрессивной анимации
@@ -589,28 +609,40 @@ export default function Home() {
 
         <div className="flex items-center gap-4 bg-zinc-950/50 border border-white/10 px-5 py-3 rounded-2xl backdrop-blur-xl group hover:border-primary/30 transition-all">
            <div className="flex flex-col items-end">
-              <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-1">
-                {activeTab === "heygen" ? "HeyGen Balance" : "Кошелек"}
-              </span>
-              <div className="flex items-center gap-2">
-                {activeTab === "heygen" ? (
-                  <>
-                    <Wallet className="w-4 h-4 text-green-400 group-hover:scale-110 transition-transform" />
-                    <span className="font-mono font-bold text-xl text-green-50">
-                      {heygenBalance !== null ? heygenBalance : "..."}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <Coins className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-                    <span className="font-mono font-bold text-xl text-amber-50">
-                      {balance !== null ? balance.toLocaleString() : "..."}
-                    </span>
-                    <span className="text-xs text-white/30 ml-1">кр</span>
-                  </>
-                )}
-              </div>
-           </div>
+               <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-1">
+                 {activeCategory === 'images'
+                   ? 'GPT Image Credits'
+                   : videoSubTab === 'heygen'
+                     ? 'HeyGen Balance'
+                     : 'Кошелек'}
+               </span>
+               <div className="flex items-center gap-2">
+                 {activeCategory === 'images' ? (
+                   <>
+                     <Coins className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+                     <span className="font-mono font-bold text-xl text-amber-50">
+                       {gptImageCredits !== null ? gptImageCredits.toLocaleString() : "..."}
+                     </span>
+                     <span className="text-xs text-white/30 ml-1">кр</span>
+                   </>
+                 ) : videoSubTab === 'heygen' ? (
+                   <>
+                     <Wallet className="w-4 h-4 text-green-400 group-hover:scale-110 transition-transform" />
+                     <span className="font-mono font-bold text-xl text-green-50">
+                       {heygenBalance !== null ? heygenBalance : "..."}
+                     </span>
+                   </>
+                 ) : (
+                   <>
+                     <Coins className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
+                     <span className="font-mono font-bold text-xl text-amber-50">
+                       {balance !== null ? balance.toLocaleString() : "..."}
+                     </span>
+                     <span className="text-xs text-white/30 ml-1">кр</span>
+                   </>
+                 )}
+               </div>
+            </div>
            <div className="w-px h-10 bg-white/10 mx-1" />
            <button 
              onClick={() => setShowHistory(true)} 
@@ -625,45 +657,100 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Tab Bar */}
-      <div className="flex gap-1 mb-6 bg-zinc-950/50 border border-white/10 rounded-xl p-1 max-w-md" data-testid="tab-bar">
+      {/* Category Tab Bar */}
+      <div className="flex gap-1 mb-2 bg-zinc-950/50 border border-white/10 rounded-xl p-1 max-w-md" data-testid="category-tab-bar">
         <button
-          onClick={() => setActiveTab("seedance")}
+          onClick={() => setActiveCategory('video')}
           className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-            activeTab === "seedance"
-              ? "bg-purple-600 text-white"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+            activeCategory === 'video'
+              ? 'bg-purple-600 text-white'
+              : 'text-zinc-400 hover:text-white hover:bg-white/5'
           }`}
-          data-tab="seedance"
+          data-category="video"
         >
-          Seedance / Kling
+          Видео
         </button>
         <button
-          onClick={() => setActiveTab("heygen")}
+          onClick={() => setActiveCategory('images')}
           className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-            activeTab === "heygen"
-              ? "bg-purple-600 text-white"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+            activeCategory === 'images'
+              ? 'bg-purple-600 text-white'
+              : 'text-zinc-400 hover:text-white hover:bg-white/5'
           }`}
-          data-tab="heygen"
+          data-category="images"
         >
-          HeyGen
-        </button>
-        <button
-          onClick={() => setActiveTab("hyperframes")}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-            activeTab === "hyperframes"
-              ? "bg-purple-600 text-white"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
-          }`}
-          data-tab="hyperframes"
-        >
-          HyperFrames
+          Картинки
         </button>
       </div>
 
+      {/* Sub Tab Bar */}
+      {activeCategory === 'video' && (
+        <div className="flex gap-1 mb-6 bg-zinc-950/50 border border-white/10 rounded-xl p-1 max-w-md" data-testid="video-sub-tab-bar">
+          <button
+            onClick={() => setVideoSubTab('seedance')}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+              videoSubTab === 'seedance'
+                ? 'bg-purple-600 text-white'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+            }`}
+            data-subtab="seedance"
+          >
+            Seedance
+          </button>
+          <button
+            onClick={() => setVideoSubTab('kling')}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+              videoSubTab === 'kling'
+                ? 'bg-purple-600 text-white'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+            }`}
+            data-subtab="kling"
+          >
+            Kling
+          </button>
+          <button
+            onClick={() => setVideoSubTab('heygen')}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+              videoSubTab === 'heygen'
+                ? 'bg-purple-600 text-white'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+            }`}
+            data-subtab="heygen"
+          >
+            HeyGen
+          </button>
+        </div>
+      )}
+
+      {activeCategory === 'images' && (
+        <div className="flex gap-1 mb-6 bg-zinc-950/50 border border-white/10 rounded-xl p-1 max-w-md" data-testid="images-sub-tab-bar">
+          <button
+            onClick={() => setImageSubTab('text-to-image')}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+              imageSubTab === 'text-to-image'
+                ? 'bg-purple-600 text-white'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+            }`}
+            data-subtab="text-to-image"
+          >
+            Text-to-Image
+          </button>
+          <button
+            onClick={() => setImageSubTab('image-to-image')}
+            className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+              imageSubTab === 'image-to-image'
+                ? 'bg-purple-600 text-white'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
+            }`}
+            data-subtab="image-to-image"
+          >
+            Image-to-Image
+          </button>
+        </div>
+      )}
+
       {/* Seedance/Kling Content — always mounted, hidden via CSS when inactive */}
-      <div style={{ display: activeTab === "seedance" ? "block" : "none" }}>
+      <div style={{ display: activeCategory === 'video' && (videoSubTab === 'seedance' || videoSubTab === 'kling') ? 'block' : 'none' }}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
         
         {/* LEFT PANEL - CONTROLS */}
@@ -676,7 +763,9 @@ export default function Home() {
               Выберите Модель
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1 bg-white/5 rounded-xl border border-white/5">
-              {AI_MODELS.map((model) => (
+              {AI_MODELS.filter((model) =>
+                videoSubTab === 'seedance' ? model.provider === 'bytedance' : model.provider === 'kling'
+              ).map((model) => (
                 <button
                   key={model.id}
                   onClick={() => setModelId(model.id)}
@@ -1313,13 +1402,6 @@ export default function Home() {
                   <a href={videoResult} download className="bg-black/50 hover:bg-black/80 backdrop-blur-md text-white p-2 rounded-full transition-colors" title="Скачать видео">
                     <Download className="w-4 h-4" />
                   </a>
-                  <button
-                    onClick={() => window.dispatchEvent(new CustomEvent("import-to-hyperframes", { detail: { videoUrl: videoResult } }))}
-                    className="bg-black/50 hover:bg-black/80 backdrop-blur-md text-purple-400 hover:text-purple-300 p-2 rounded-full transition-colors"
-                    title="Использовать в HyperFrames"
-                  >
-                    <Film className="w-4 h-4" />
-                  </button>
                 </div>
               </motion.div>
             )}
@@ -1354,14 +1436,15 @@ export default function Home() {
       </div>
 
       {/* HeyGen Content — always mounted, hidden via CSS when inactive */}
-      <div style={{ display: activeTab === "heygen" ? "block" : "none" }}>
+      <div style={{ display: activeCategory === 'video' && videoSubTab === 'heygen' ? 'block' : 'none' }}>
         <HeyGenTab />
       </div>
 
-      {/* HyperFrames Content — always mounted, hidden via CSS when inactive */}
-      <div style={{ display: activeTab === "hyperframes" ? "block" : "none" }}>
-        <HyperFramesTab />
+      {/* GPT Image Content — always mounted, hidden via CSS when inactive */}
+      <div style={{ display: activeCategory === 'images' ? 'block' : 'none' }}>
+        <GptImageTab />
       </div>
+
     </main>
   );
 }
