@@ -1,0 +1,12 @@
+node_modules
+.next
+.sisyphus
+.git
+*.log
+.env
+.qa_screenshots
+qa_check.py
+qa_screenshots
+.playwright-mcp
+vitest.config.ts
+src/__tests__
