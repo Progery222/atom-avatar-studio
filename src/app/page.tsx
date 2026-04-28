@@ -600,7 +600,7 @@ export default function Home() {
             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
               <Video className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white">Atom Studio Avatar</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">Atom Avatar Studio</h1>
           </div>
           <p className="text-white/40 text-sm max-w-sm">
             Оживите любой портрет с помощью глубокой экспрессивной анимации

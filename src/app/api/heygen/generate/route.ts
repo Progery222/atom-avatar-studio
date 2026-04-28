@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       const payload: HeyGenCreateVideoFromImage = {
         type: 'image',
         image: { type: 'url', url: imageUrl! },
-        title: `Aura Dynamics - ${new Date().toISOString()}`,
+        title: `Atom Avatar Studio - ${new Date().toISOString()}`,
       }
 
       if (script && voiceId) {
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       const payload: HeyGenCreateVideoFromAvatar = {
         type: 'avatar',
         avatar_id: avatarId!,
-        title: `Aura Dynamics - ${new Date().toISOString()}`,
+        title: `Atom Avatar Studio - ${new Date().toISOString()}`,
         // Photo Avatar supports motion_prompt and expressiveness
         expressiveness: expressiveness ?? 'low',
       }
