@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Upload, Mic, FileAudio, Play, Loader2, Download, Video, Film } from 'lucide-react'
+import { Upload, Mic, FileAudio, Play, Loader2, Download, Video } from 'lucide-react'
 import { uploadFileToSupabase } from '@/lib/supabase'
 import { historyService } from '@/lib/history-service'
 import VoiceSelector from '@/components/voice-selector'
@@ -652,13 +652,7 @@ const handleGenerate = async () => {
               <Download className="w-4 h-4" />
               Скачать видео
             </a>
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent("import-to-hyperframes", { detail: { videoUrl: videoResult } }))}
-              className="flex items-center justify-center gap-2 w-full py-2 rounded-lg bg-purple-600/20 text-purple-300 hover:bg-purple-600/30 text-sm transition-colors border border-purple-500/20"
-            >
-              <Film className="w-4 h-4" />
-              Использовать в HyperFrames
-            </button>
+
           </div>
         ) : (
           <div className="glass-panel rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-64 space-y-3">
