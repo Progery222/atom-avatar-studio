@@ -16,7 +16,7 @@ export interface AIModel {
 export const AI_MODELS: AIModel[] = [
   {
     id: 'bytedance/seedance-2-fast',
-    name: 'Seedance 2.0 Fast (720p/480p)',
+    name: 'Seedance 2.0 Fast',
     description: 'Быстрая модель со встроенной озвучкой. Рекомендуется 480p для скорости.',
     provider: 'bytedance',
     type: 'integrated',
@@ -24,7 +24,7 @@ export const AI_MODELS: AIModel[] = [
       '480p': 15.5,
       '720p': 33.0
     },
-    supportedAspectRatios: ['9:16', '16:9', '1:1', '3:4', '4:3'],
+    supportedAspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16', '21:9', 'adaptive'],
     supportedResolutions: ['480p', '720p'],
     canUploadAudio: false,
     hasCameraEffects: false,

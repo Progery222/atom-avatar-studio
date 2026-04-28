@@ -55,7 +55,7 @@ export default function Home() {
   const [modelId, setModelId] = useState<string>(AI_MODELS[0].id);
   const [cameraEffectId, setCameraEffectId] = useState<string>(CAMERA_EFFECTS[0].id);
   const [resolution, setResolution] = useState<string>("480p");
-  const [aspectRatio, setAspectRatio] = useState<string>("9:16");
+  const [aspectRatio, setAspectRatio] = useState<string>("16:9");
   const [duration, setDuration] = useState(5);
   const [webSearch, setWebSearch] = useState(false);
   const [nsfwChecker, setNsfwChecker] = useState(false);
@@ -85,9 +85,9 @@ export default function Home() {
       }
     }
 
-    // Set default aspect ratio to 9:16 for Seedance
+    // Set default aspect ratio to 16:9 for Seedance
     if (selectedModel.id === 'bytedance/seedance-2-fast') {
-      setAspectRatio("9:16");
+      setAspectRatio("16:9");
     } else if (selectedModel.supportedAspectRatios.length > 0) {
       if (!selectedModel.supportedAspectRatios.includes(aspectRatio)) {
         setAspectRatio(selectedModel.supportedAspectRatios[0]);
@@ -785,6 +785,56 @@ export default function Home() {
             <p className="text-[11px] text-white/30 px-1 leading-relaxed italic">
               {selectedModel.description}
             </p>
+
+            {/* Resolution selector for Seedance — placed right under model selection */}
+            {selectedModel.id === 'bytedance/seedance-2-fast' && (
+              <div className="space-y-2 mt-2">
+                <label className="text-xs text-white/60 flex items-center gap-1.5">
+                  <Monitor className="w-3 h-3" /> Разрешение
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {selectedModel.supportedResolutions.map((res) => (
+                    <button
+                      key={res}
+                      onClick={() => setResolution(res)}
+                      className={cn(
+                        "py-2 px-3 rounded-lg text-xs font-medium transition-all border",
+                        resolution === res
+                          ? "bg-primary/20 border-primary text-primary"
+                          : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+                      )}
+                    >
+                      {res} {res === '480p' ? '(Быстро)' : '(Баланс)'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Aspect Ratio selector for Seedance */}
+            {selectedModel.id === 'bytedance/seedance-2-fast' && (
+              <div className="space-y-2 mt-2">
+                <label className="text-xs text-white/60 flex items-center gap-1.5">
+                  <Maximize className="w-3 h-3" /> Соотношение сторон
+                </label>
+                <div className="grid grid-cols-4 gap-2">
+                  {selectedModel.supportedAspectRatios.map((ar) => (
+                    <button
+                      key={ar}
+                      onClick={() => setAspectRatio(ar)}
+                      className={cn(
+                        "py-2 px-1 rounded-lg text-xs font-medium transition-all border",
+                        aspectRatio === ar
+                          ? "bg-primary/20 border-primary text-primary"
+                          : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20"
+                      )}
+                    >
+                      {ar === 'adaptive' ? 'Авто' : ar}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="h-px bg-white/5 mx-2" />
@@ -1251,71 +1301,29 @@ export default function Home() {
           </div>
           )}
 
-          {/* Advanced Settings Toggle - Only for Seedance */}
+          {/* Duration & Extra Settings — always visible for Seedance */}
           {selectedModel.id === 'bytedance/seedance-2-fast' && (
-            <div className="border-t border-white/5 pt-4">
-              <button 
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
-              >
-                <Settings2 className="w-4 h-4" />
-                <span>Расширенные настройки</span>
-                <ChevronDown className={cn("w-4 h-4 transition-transform", showAdvanced && "rotate-180")} />
-              </button>
+            <div className="space-y-4">
+              <div className="h-px bg-white/5 mx-2" />
 
-              <AnimatePresence>
-                {showAdvanced && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="space-y-4 mt-4 overflow-hidden"
-                  >
-                    <div className="grid grid-cols-2 gap-4">
-                      {selectedModel.supportedResolutions.length > 0 && (
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] text-white/60 flex items-center gap-1.5">
-                            <Monitor className="w-3 h-3" /> Разрешение
-                          </label>
-                          <select value={resolution} onChange={e => setResolution(e.target.value as any)} className="w-full glass-input rounded-lg p-2 text-xs bg-zinc-900 text-white">
-                            {selectedModel.supportedResolutions.map(res => (
-                              <option key={res} value={res} className="bg-zinc-900 text-white">{res} {res === '480p' ? '(Быстро)' : '(Баланс)'}</option>
-                            ))}
-                          </select>
-                        </div>
-                      )}
-                      
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] text-white/60 flex items-center gap-1.5">
-                          <Maximize className="w-3 h-3" /> Формат
-                        </label>
-                        <div className="w-full glass-input rounded-lg p-2 text-[10px] text-white/70 italic">
-                          {aspectRatio}
-                        </div>
-                      </div>
-                    </div>
+              <div className="space-y-1.5">
+                <label className="text-[11px] text-white/40 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> Длительность</span>
+                  <span>{duration} сек</span>
+                </label>
+                <input type="range" min="4" max="15" step="1" value={duration} onChange={e => setDuration(Number(e.target.value))} className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary" />
+              </div>
 
-                    <div className="space-y-1.5">
-                      <label className="text-[11px] text-white/40 flex items-center justify-between">
-                        <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> Длительность</span>
-                        <span>{duration} сек</span>
-                      </label>
-                      <input type="range" min="4" max="15" step="1" value={duration} onChange={e => setDuration(Number(e.target.value))} className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary" />
-                    </div>
-
-                    <div className="flex gap-4 pt-2">
-                      <label className="flex-1 flex items-center justify-between p-2 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
-                        <span className="text-[11px] text-white/70 flex items-center gap-2"><Search className="w-3.5 h-3.5" /> Поиск в веб</span>
-                        <input type="checkbox" checked={webSearch} onChange={e => setWebSearch(e.target.checked)} className="rounded bg-zinc-800 border-white/10 text-primary" />
-                      </label>
-                      <label className="flex-1 flex items-center justify-between p-2 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
-                        <span className="text-[11px] text-white/70 flex items-center gap-2"><ShieldCheck className="w-3.5 h-3.5" /> NSFW Фильтр</span>
-                        <input type="checkbox" checked={nsfwChecker} onChange={e => setNsfwChecker(e.target.checked)} className="rounded bg-zinc-800 border-white/10 text-primary" />
-                      </label>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className="flex gap-4">
+                <label className="flex-1 flex items-center justify-between p-2 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                  <span className="text-[11px] text-white/70 flex items-center gap-2"><Search className="w-3.5 h-3.5" /> Поиск в веб</span>
+                  <input type="checkbox" checked={webSearch} onChange={e => setWebSearch(e.target.checked)} className="rounded bg-zinc-800 border-white/10 text-primary" />
+                </label>
+                <label className="flex-1 flex items-center justify-between p-2 rounded-lg bg-white/5 cursor-pointer hover:bg-white/10 transition-colors">
+                  <span className="text-[11px] text-white/70 flex items-center gap-2"><ShieldCheck className="w-3.5 h-3.5" /> NSFW Фильтр</span>
+                  <input type="checkbox" checked={nsfwChecker} onChange={e => setNsfwChecker(e.target.checked)} className="rounded bg-zinc-800 border-white/10 text-primary" />
+                </label>
+              </div>
             </div>
           )}
 
