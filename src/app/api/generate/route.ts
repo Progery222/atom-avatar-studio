@@ -7,7 +7,9 @@ import { AI_MODELS } from '@/constants/models';
 
 export async function POST(req: Request) {
   try {
+    console.error('[Generate API] Request received');
     const body = await req.json();
+    console.error('[Generate API] Body parsed:', JSON.stringify({ modelId: body.modelId, hasImage: !!body.imageRefUrl, hasAudio: !!body.audioUrl }));
     
     const { 
       modelId, // New

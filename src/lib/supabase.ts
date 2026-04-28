@@ -24,20 +24,28 @@ export function getSupabase() {
  */
 export async function uploadFileToSupabase(bucket: string, path: string, file: File | Blob) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  console.error('[Supabase] Starting upload. URL:', supabaseUrl, 'Bucket:', bucket, 'Path:', path, 'Size:', file.size);
+  
   const client = getSupabase();
 
-  const { data, error } = await client.storage
-    .from(bucket)
-    .upload(path, file, { upsert: true });
+  try {
+    const { data, error } = await client.storage
+      .from(bucket)
+      .upload(path, file, { upsert: true });
 
-  if (error) {
-    throw new Error(`Upload fail: ${error.message}`);
+    if (error) {
+      console.error('[Supabase] Upload error object:', JSON.stringify(error));
+      throw new Error(`Upload fail: ${error.message} (status: ${error.status || 'unknown'})`);
+    }
+
+    // Construct public URL directly - assumes bucket is public
+    const publicUrl = `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}`;
+    
+    console.error('[Supabase] Uploaded to:', publicUrl);
+    
+    return publicUrl;
+  } catch (err: any) {
+    console.error('[Supabase] Upload exception:', err?.message || err);
+    throw err;
   }
-
-  // Construct public URL directly - assumes bucket is public
-  const publicUrl = `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}`;
-  
-  console.log('[Supabase] Uploaded to:', publicUrl);
-  
-  return publicUrl;
 }
