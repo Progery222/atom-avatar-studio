@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronDown, ChevronUp, Info, Languages, Sparkles, Star, User, Users, Volume2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, ChevronUp, Info, Languages, Loader2, Play, Sparkles, Star, User, Users, Volume2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   GEMINI_FLASH_AUDIO_TAGS,
@@ -48,10 +48,24 @@ export default function GeminiFlashTTSSettings({
   const [genderFilter, setGenderFilter] = useState<GenderFilter>("all");
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const [favoriteVoiceIds, setFavoriteVoiceIds] = useState<string[]>(loadFavoriteVoiceIds);
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteVoiceIds));
   }, [favoriteVoiceIds]);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   // Gemini Flash voices are multilingual, so locale is informational for UI.
   const filteredVoices = GEMINI_FLASH_VOICES.filter((voice) => {
@@ -91,6 +105,76 @@ export default function GeminiFlashTTSSettings({
     if (favoriteVoices.length === 0) return;
     if (!favoriteVoices.some((voice) => voice.id === voiceName)) {
       onVoiceNameChange(favoriteVoices[0].id);
+    }
+  };
+
+  const handlePreviewVoice = async () => {
+    if (!currentVoice) return;
+
+    // Cancel any in-flight preview
+    if (isPreviewLoading && abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+      setIsPreviewLoading(false);
+      return;
+    }
+
+    setPreviewError(null);
+    setIsPreviewLoading(true);
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    try {
+      const response = await fetch('/api/tts/voice-preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          voiceName: currentVoice.id,
+          languageCode,
+        }),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Failed to generate preview (${response.status})`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      // Clean up previous audio
+      if (audioRef.current) {
+        audioRef.current.pause();
+        URL.revokeObjectURL(audioRef.current.src);
+      }
+
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        audioRef.current = null;
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        audioRef.current = null;
+        setPreviewError('Failed to play audio');
+      };
+
+      await audio.play();
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        // Request was cancelled — no error to show
+        return;
+      }
+      console.error('[Voice Preview] Error:', error);
+      setPreviewError(error.message || 'Failed to generate preview');
+    } finally {
+      setIsPreviewLoading(false);
+      abortControllerRef.current = null;
     }
   };
 
@@ -265,9 +349,33 @@ export default function GeminiFlashTTSSettings({
 
           {currentVoice && (
             <div className="text-[10px] text-white/30 px-1 flex items-center justify-between gap-2">
-              <span>
-                Selected: <span className="text-white/60">{currentVoice.name}</span> (
-                {currentVoice.gender}) - {currentVoice.description}
+              <span className="flex items-center gap-2">
+                <span>
+                  Selected: <span className="text-white/60">{currentVoice.name}</span> (
+                  {currentVoice.gender}) - {currentVoice.description}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePreviewVoice();
+                  }}
+                  disabled={false}
+                  className={cn(
+                    "p-1 rounded border flex items-center justify-center transition-all",
+                    isPreviewLoading
+                      ? "border-blue-400/40 bg-blue-500/10 text-blue-300"
+                      : previewError
+                        ? "border-red-400/40 bg-red-500/10 text-red-300"
+                        : "border-white/15 text-white/60 hover:bg-white/10 hover:text-white/80"
+                  )}
+                  title={previewError || "Listen to voice preview"}
+                >
+                  {isPreviewLoading ? (
+                    <Loader2 className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <Play className="w-3 h-3" />
+                  )}
+                </button>
               </span>
               <button
                 onClick={() => toggleFavorite(currentVoice.id)}

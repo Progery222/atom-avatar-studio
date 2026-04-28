@@ -332,7 +332,7 @@ async function generateGeminiTTS(
   throw new Error(`Google Cloud TTS failed with all keys. Last error: ${lastError?.message || 'Unknown error'}`);
 }
 
-async function generateGeminiFlashTTS(
+export async function generateGeminiFlashTTS(
   text: string,
   options: GeminiFlashTTSOptions = {}
 ): Promise<TTSResult> {

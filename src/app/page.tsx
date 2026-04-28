@@ -217,6 +217,7 @@ export default function Home() {
       setAttachedAudioUrl(ttsPreviewUrl);
       setAudioMode("file");
       setAudioFile(null); // Clear any uploaded file
+      setTtsPreviewUrl(null);
     }
   };
 
@@ -1005,12 +1006,37 @@ export default function Home() {
                       onClick={() => audioInputRef.current?.click()}
                       className="border border-white/10 hover:border-primary/50 transition-colors w-full h-24 rounded-xl flex flex-col items-center justify-center cursor-pointer bg-white/5 relative"
                     >
-                      <input type="file" accept="audio/*" className="hidden" ref={audioInputRef} onChange={(e) => setAudioFile(e.target.files?.[0] || null)} />
-                      <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
-                      <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
-                        {audioFile ? audioFile.name : "Загрузите свой аудиофайл (MP3/WAV)"}
-                      </span>
-                      {audioFile && <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">Uploaded</div>}
+                      <input type="file" accept="audio/*" className="hidden" ref={audioInputRef} onChange={(e) => { setAudioFile(e.target.files?.[0] || null); setAttachedAudioUrl(null); }} />
+                      {attachedAudioUrl ? (
+                        <div className="w-full h-full flex flex-col items-center justify-center px-4 gap-2 relative" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center gap-2">
+                            <Volume2 className="w-4 h-4 text-primary" />
+                            <span className="text-[11px] text-white/70 font-medium">TTS аудио прикреплено</span>
+                          </div>
+                          <audio src={attachedAudioUrl} controls className="w-full h-8" />
+                          <button 
+                            onClick={(e) => { e.stopPropagation(); setAttachedAudioUrl(null); }}
+                            className="absolute top-2 right-2 p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                          >
+                            <X className="w-3 h-3 text-white/70" />
+                          </button>
+                        </div>
+                      ) : audioFile ? (
+                        <>
+                          <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
+                          <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
+                            {audioFile.name}
+                          </span>
+                          <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">Uploaded</div>
+                        </>
+                      ) : (
+                        <>
+                          <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
+                          <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
+                            Загрузите свой аудиофайл (MP3/WAV)
+                          </span>
+                        </>
+                      )}
                     </div>
                   </motion.div>
                 ) : selectedModel.type !== 'integrated' && audioMode === "text" ? (
@@ -1022,7 +1048,7 @@ export default function Home() {
                         <Sparkles className="w-3 h-3" />
                         Flash
                       </button>
-                      <button onClick={() => setTtsProvider("internal")} className={cn("flex-1 py-1.5 text-[11px] rounded-lg border", ttsProvider === "internal" ? "bg-white/10 border-primary text-primary" : "border-white/10 text-white/60 hover:bg-white/5")}>Р’СЃС‚СЂРѕРµРЅРЅС‹Р№</button>
+                      <button onClick={() => setTtsProvider("internal")} className={cn("flex-1 py-1.5 text-[11px] rounded-lg border", ttsProvider === "internal" ? "bg-white/10 border-primary text-primary" : "border-white/10 text-white/60 hover:bg-white/5")}>Встроенный</button>
                     </div>
 
                     {/* Gemini Flash TTS Settings */}
@@ -1137,12 +1163,37 @@ export default function Home() {
                       onClick={() => audioInputRef.current?.click()}
                       className="border border-white/10 hover:border-primary/50 transition-colors w-full h-24 rounded-xl flex flex-col items-center justify-center cursor-pointer bg-white/5 relative"
                     >
-                      <input type="file" accept="audio/*" className="hidden" ref={audioInputRef} onChange={(e) => setAudioFile(e.target.files?.[0] || null)} />
-                      <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
-                      <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
-                        {audioFile ? audioFile.name : "Загрузите свой аудиофайл (MP3/WAV)"}
-                      </span>
-                      {audioFile && <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">Uploaded</div>}
+                      <input type="file" accept="audio/*" className="hidden" ref={audioInputRef} onChange={(e) => { setAudioFile(e.target.files?.[0] || null); setAttachedAudioUrl(null); }} />
+                      {attachedAudioUrl ? (
+                        <div className="w-full h-full flex flex-col items-center justify-center px-4 gap-2 relative" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center gap-2">
+                            <Volume2 className="w-4 h-4 text-primary" />
+                            <span className="text-[11px] text-white/70 font-medium">TTS аудио прикреплено</span>
+                          </div>
+                          <audio src={attachedAudioUrl} controls className="w-full h-8" />
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setAttachedAudioUrl(null); }}
+                            className="absolute top-2 right-2 p-1 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                          >
+                            <X className="w-3 h-3 text-white/70" />
+                          </button>
+                        </div>
+                      ) : audioFile ? (
+                        <>
+                          <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
+                          <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
+                            {audioFile.name}
+                          </span>
+                          <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">Uploaded</div>
+                        </>
+                      ) : (
+                        <>
+                          <FileAudio className="w-6 h-6 mb-2 text-primary/60" />
+                          <span className="text-[11px] text-white/70 max-w-[80%] truncate text-center font-medium">
+                            Загрузите свой аудиофайл (MP3/WAV)
+                          </span>
+                        </>
+                      )}
                     </div>
                   </motion.div>
                 )}

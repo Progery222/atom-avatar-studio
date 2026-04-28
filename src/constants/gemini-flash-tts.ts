@@ -89,3 +89,34 @@ export const GEMINI_FLASH_DEFAULT_CONFIG = {
   voiceName: 'Kore',
   languageCode: 'ru-RU',
 };
+
+export const GEMINI_FLASH_PREVIEW_TEXTS: Record<string, string> = {
+  'ar-EG': 'مرحبا، أنا صوت {voiceName}',
+  'bn-BD': 'হ্যালো, আমি {voiceName} কণ্ঠ',
+  'de-DE': 'Hallo, ich bin Stimme {voiceName}',
+  'en-IN': 'Hello, I am voice {voiceName}',
+  'en-US': 'Hello, I am voice {voiceName}',
+  'es-ES': 'Hola, soy la voz {voiceName}',
+  'fr-FR': 'Bonjour, je suis la voix {voiceName}',
+  'hi-IN': 'नमस्ते, मैं {voiceName} की आवाज़ हूँ',
+  'id-ID': 'Halo, saya suara {voiceName}',
+  'it-IT': 'Ciao, sono la voce {voiceName}',
+  'ja-JP': 'こんにちは、{voiceName}の声です',
+  'ko-KR': '안녕하세요, {voiceName} 목소리입니다',
+  'mr-IN': 'नमस्कार, मी {voiceName} आवाज आहे',
+  'pl-PL': 'Cześć, jestem głosem {voiceName}',
+  'pt-BR': 'Olá, eu sou a voz {voiceName}',
+  'ro-RO': 'Bună, eu sunt vocea {voiceName}',
+  'ru-RU': 'Привет, я голос {voiceName}',
+  'ta-IN': 'வணக்கம், நான் {voiceName} குரல்',
+  'te-IN': 'హలో, నేను {voiceName} కంఠం',
+  'th-TH': 'สวัสดี, ฉันคือเสียง {voiceName}',
+  'tr-TR': 'Merhaba, ben {voiceName} sesiyim',
+  'uk-UA': 'Привіт, я голос {voiceName}',
+  'vi-VN': 'Xin chào, tôi là giọng {voiceName}',
+};
+
+export function getPreviewText(languageCode: string, voiceName: string): string {
+  const template = GEMINI_FLASH_PREVIEW_TEXTS[languageCode] || GEMINI_FLASH_PREVIEW_TEXTS['en-US'];
+  return template.replace('{voiceName}', voiceName);
+}
