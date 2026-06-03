@@ -1,0 +1,51 @@
+# Production stack for self-hosted server (atom@10.20.87.230).
+# Deploys only the Next.js app + a dedicated Tailscale node (sidecar) that
+# exposes it publicly via Funnel at https://atom-avatar.<tailnet>.ts.net.
+# The Python worker (worker/) is intentionally not deployed here.
+#
+# Usage on server:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Requires a .env file in this directory (see .env.example), including TS_AUTHKEY.
+
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: atom-avatar-ts
+    hostname: atom-avatar
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_HOSTNAME=atom-avatar
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=true
+      - TS_SERVE_CONFIG=/config/serve.json
+    volumes:
+      - atom_avatar_ts_state:/var/lib/tailscale
+      - ./deploy/tailscale-serve.json:/config/serve.json:ro
+    cap_add:
+      - net_admin
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    container_name: atom-avatar-app
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    # Share the Tailscale container's network namespace so Funnel can reach the
+    # app at 127.0.0.1:3000. Do NOT add a `ports:` block here — declare ports on
+    # the `tailscale` service instead if host access is ever needed.
+    network_mode: service:tailscale
+    depends_on:
+      - tailscale
+    restart: unless-stopped
+
+volumes:
+  atom_avatar_ts_state:

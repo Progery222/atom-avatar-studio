@@ -1,0 +1,23 @@
+name: Deploy to server
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, atom-avatar]
+    steps:
+      - name: Pull latest & redeploy
+        run: |
+          set -e
+          cd /home/atom/apps/atom-avatar-studio
+          git fetch --all
+          git reset --hard origin/main
+          docker compose -f docker-compose.prod.yml up -d --build
+          docker image prune -f
