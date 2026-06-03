@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ---
 
-# AGENTS.md — Aura Dynamics (3D Avatar Generate)
+# AGENTS.md — Atom Avatar Studio (3D Avatar Generate)
 
 ## Quick Commands
 
@@ -28,6 +28,29 @@ Two independent tabs in `src/app/page.tsx`:
 |-----|------|---------|
 | **Seedance** | `src/app/page.tsx` (lines 50–700+) | AI avatar video generation (KIE.ai / ByteDance) |
 | **HeyGen** | `src/components/heygen-tab.tsx` | HeyGen avatar generation |
+
+The shell in `src/app/page.tsx` actually drives **two categories**: *Video* (Seedance / Kling / HeyGen sub-tabs) and *Images* (Text-to-Image / Image-to-Image, see `src/components/gpt-image-tab.tsx`).
+
+---
+
+## Codebase Map
+
+Each directory below has its own `AGENTS.md` with detailed, AI-readable docs. Start here, then drill down.
+
+| Directory | Contents | Doc |
+|-----------|----------|-----|
+| `src/` | Application source (Next.js App Router) | `src/AGENTS.md` |
+| `src/app/` | Routes, root layout, global styles | `src/app/AGENTS.md` |
+| `src/app/api/` | Backend route handlers (KIE, HeyGen, GPT-Image, TTS) | `src/app/api/AGENTS.md` |
+| `src/components/` | Client UI components (tabs, selectors, settings panels) | `src/components/AGENTS.md` |
+| `src/lib/` | Service/integration layer — API clients, storage, TTS | `src/lib/AGENTS.md` |
+| `src/constants/` | Provider config: voices, presets, pricing, error messages | `src/constants/AGENTS.md` |
+| `src/types/` | TypeScript API contracts (GPT-Image, HeyGen) | `src/types/AGENTS.md` |
+| `src/__tests__/` | Vitest suites (GPT-Image client, routes, constraints) | `src/__tests__/AGENTS.md` |
+| `worker/` | Standalone FastAPI worker (transcribe/EDL/render stubs) | `worker/AGENTS.md` |
+| `Docs/` | Product/research specs (Seedance prompt design, HeyGen) | `Docs/AGENTS.md` |
+
+> `public/` holds only default Next.js SVG assets; `.agent/` is a vendored agent-framework (not project code). Neither is documented here.
 
 ---
 
