@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Upload, Loader2, Download, ImageIcon, X, AlertCircle, Coins, Sparkles, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { uploadFileToSupabase } from '@/lib/supabase'
+import { uploadFile } from '@/lib/upload-client'
 import { historyService } from '@/lib/history-service'
 import {
   GPT_IMAGE_ASPECT_RATIOS,
@@ -159,7 +159,7 @@ export default function GptImageTab() {
       const file = uploadedImages[i]
       const ext = file.name.split('.').pop() || 'png'
       const filename = `gpt_image_${Date.now()}_${i}.${ext}`
-      const url = await uploadFileToSupabase('media', filename, file)
+      const url = await uploadFile(filename, file)
       urls.push(url)
     }
     setUploadedImageUrls(urls)

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileAudio, Play, Loader2, Download, Video, Settings2, ChevronDown, Monitor, Maximize, Clock, Search, ShieldCheck, Bug, Timer, User, UserCheck, Wallet, Coins, Activity, RefreshCw, Sparkles, Volume2, Wand2, History, Trash2, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { uploadFileToSupabase } from "@/lib/supabase";
+import { uploadFile } from "@/lib/upload-client";
 import { AI_MODELS, CAMERA_EFFECTS } from "@/constants/models";
 import { SEEDANCE_CAMERA_EFFECTS, SEEDANCE_EMOTIONS, SEEDANCE_LIGHTING } from "@/constants/presets";
 import { GEMINI_FLASH_DEFAULT_CONFIG } from "@/constants/gemini-flash-tts";
@@ -366,14 +366,14 @@ export default function Home() {
         setTimer(Math.round((Date.now() - startTimeRef.current) / 1000));
       }, 1000);
 
-      const imageUrl = await uploadFileToSupabase('media', `avatar_${Date.now()}.png`, imageFile);
+      const imageUrl = await uploadFile(`avatar_${Date.now()}.png`, imageFile);
       let finalAudioUrl = "";
 
       // Priority: 1. audioFile upload, 2. ttsPreviewUrl, 3. generate new TTS
       if (audioMode === "file" && audioFile) {
         const originalExt = audioFile.name.split('.').pop()?.toLowerCase();
         const safeExt = originalExt && originalExt.length <= 5 ? originalExt : 'mp3';
-        finalAudioUrl = await uploadFileToSupabase('media', `audio_${Date.now()}.${safeExt}`, audioFile);
+        finalAudioUrl = await uploadFile(`audio_${Date.now()}.${safeExt}`, audioFile);
       } else if (audioMode === "file" && attachedAudioUrl) {
         finalAudioUrl = attachedAudioUrl;
       } else if (ttsPreviewUrl) {

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { Upload, Mic, FileAudio, Play, Loader2, Download, Video } from 'lucide-react'
-import { uploadFileToSupabase } from '@/lib/supabase'
+import { uploadFile } from '@/lib/upload-client'
 import { historyService } from '@/lib/history-service'
 import VoiceSelector from '@/components/voice-selector'
 import BackgroundSelector, { getBackgroundPayload } from '@/components/background-selector'
@@ -194,13 +194,13 @@ const handleGenerate = async () => {
 
       let imageUrl: string | undefined
       if (sourceType === 'image' && imageFile) {
-        imageUrl = await uploadFileToSupabase('media', `heygen_avatar_${Date.now()}.jpg`, imageFile)
+        imageUrl = await uploadFile(`heygen_avatar_${Date.now()}.jpg`, imageFile)
       }
 
       let audioUrl: string | undefined
       if (audioMode === 'file' && audioFile) {
         setStepText('Загрузка аудио...')
-        audioUrl = await uploadFileToSupabase('media', `heygen_audio_${Date.now()}.mp3`, audioFile)
+        audioUrl = await uploadFile(`heygen_audio_${Date.now()}.mp3`, audioFile)
       }
 
       setStepText('Создание видео...')

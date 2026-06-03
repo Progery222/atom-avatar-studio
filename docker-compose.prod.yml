@@ -30,9 +30,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
     container_name: atom-avatar-app
     env_file: .env
     environment:
@@ -45,7 +42,23 @@ services:
     network_mode: service:tailscale
     depends_on:
       - tailscale
+      - minio
+    restart: unless-stopped
+
+  # Self-hosted S3-compatible object storage. Internal only (no published ports);
+  # the app reads/writes via the compose network and serves files publicly through
+  # its own /api/files/<key> route.
+  minio:
+    image: minio/minio:latest
+    container_name: atom-avatar-minio
+    command: server /data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - atom_avatar_minio_data:/data
     restart: unless-stopped
 
 volumes:
   atom_avatar_ts_state:
+  atom_avatar_minio_data:

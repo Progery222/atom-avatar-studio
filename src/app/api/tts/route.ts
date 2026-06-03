@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateTTS, TTSProvider, GeminiTTSOptions, GeminiFlashTTSOptions, TTSResult } from '@/lib/tts';
-import { uploadFileToSupabase } from '@/lib/supabase';
+import { putObject } from '@/lib/storage';
 
 export async function POST(req: Request) {
   try {
@@ -21,13 +21,12 @@ export async function POST(req: Request) {
     );
     console.error('[TTS API] TTS generated, mimeType:', result.mimeType, 'size:', result.buffer.length);
     
-    // 2. Upload to Supabase
+    // 2. Upload to storage
     const ext = result.mimeType === 'audio/wav' ? 'wav' : 'mp3';
     const filename = `tts_${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
-    const blob = new Blob([result.buffer.slice().buffer], { type: result.mimeType });
-    
-    console.error('[TTS API] Uploading to Supabase...');
-    const audioUrl = await uploadFileToSupabase('media', filename, blob);
+
+    console.error('[TTS API] Uploading to storage...');
+    const audioUrl = await putObject(filename, Buffer.from(result.buffer), result.mimeType);
     console.error('[TTS API] Upload complete:', audioUrl);
 
     return NextResponse.json({ success: true, audioUrl });

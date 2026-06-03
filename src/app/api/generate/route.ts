@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createKieTask, CreateTaskPayload } from '@/lib/kie';
 import { PromptParams } from '@/lib/prompt-builder';
 import { generateTTS, TTSProvider, GeminiTTSOptions, GeminiFlashTTSOptions } from '@/lib/tts';
-import { uploadFileToSupabase } from '@/lib/supabase';
+import { putObject } from '@/lib/storage';
 import { AI_MODELS } from '@/constants/models';
 
 export async function POST(req: Request) {
@@ -52,10 +52,10 @@ export async function POST(req: Request) {
           geminiOptions as GeminiTTSOptions | GeminiFlashTTSOptions | undefined
         );
         
-        // Upload to Supabase to get a public URL for KIE
+        // Upload to storage to get a public URL for KIE
         const ext = audioResult.mimeType === 'audio/wav' ? 'wav' : 'mp3';
         const fileName = `tts_${Date.now()}.${ext}`;
-        const uploadedUrl = await uploadFileToSupabase('media', `audio/${fileName}`, new Blob([audioResult.buffer.slice().buffer]));
+        const uploadedUrl = await putObject(`audio/${fileName}`, Buffer.from(audioResult.buffer), audioResult.mimeType);
         finalAudioUrl = uploadedUrl;
       }
       
