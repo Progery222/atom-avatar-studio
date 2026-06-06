@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, FileAudio, Play, Loader2, Download, Video, Settings2, ChevronDown, Monitor, Maximize, Clock, Search, ShieldCheck, Bug, Timer, User, UserCheck, Wallet, Coins, Activity, RefreshCw, Sparkles, Volume2, Wand2, History, Trash2, X, ExternalLink } from "lucide-react";
+import { Upload, FileAudio, Play, Loader2, Download, Video, Settings2, ChevronDown, Monitor, Maximize, Clock, Search, ShieldCheck, Bug, Timer, User, UserCheck, Wallet, Coins, Activity, RefreshCw, Sparkles, Volume2, Wand2, History, Trash2, X, ExternalLink, Code2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { uploadFile } from "@/lib/upload-client";
 import { AI_MODELS, CAMERA_EFFECTS } from "@/constants/models";
@@ -655,6 +656,13 @@ export default function Home() {
                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full animate-pulse border-2 border-zinc-950" />
              )}
            </button>
+           <Link
+             href="/api-docs"
+             className="p-2.5 hover:bg-white/5 rounded-xl transition-all active:scale-95 text-white/40 hover:text-primary"
+             title="API документация"
+           >
+             <Code2 className="w-5 h-5" />
+           </Link>
         </div>
       </header>
 
