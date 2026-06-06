@@ -36,6 +36,10 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
+      # External-API metadata DB (libSQL file) on a persistent volume.
+      - DATABASE_URL=file:/data/atom-api/app.db
+    volumes:
+      - atom_avatar_db:/data/atom-api
     # Share the Tailscale container's network namespace so Funnel can reach the
     # app at 127.0.0.1:3000. Do NOT add a `ports:` block here — declare ports on
     # the `tailscale` service instead if host access is ever needed.
@@ -62,3 +66,4 @@ services:
 volumes:
   atom_avatar_ts_state:
   atom_avatar_minio_data:
+  atom_avatar_db:
