@@ -72,17 +72,24 @@ Optional headers:
 Keys are stored only as a salted HMAC-SHA256 hash; the raw key is shown **once**.
 Set `EXTERNAL_API_KEY_HASH_SECRET` and `DATABASE_URL` first.
 
+**Local / source environments** — use the CLI:
+
 ```bash
-# Local
 npx tsx scripts/apikey.ts create --name central-service --scopes read,write
 npx tsx scripts/apikey.ts list
 npx tsx scripts/apikey.ts revoke --id key_xxx
+npx tsx scripts/apikey.ts bootstrap   # first key, no-op if any exist
+```
 
-# First key on a fresh deployment (no-op if any key exists)
-npx tsx scripts/apikey.ts bootstrap
+**Containerized production** (the CLI is not bundled into the image) — seed the
+first key via the environment. Put the **raw** key in `EXTERNAL_API_BOOTSTRAP_KEY`;
+on startup the app hashes it and inserts it if the table is empty:
 
-# Production (inside the running container)
-docker exec atom-avatar-app node scripts/apikey.js create --name central --scopes read,write
+```bash
+# generate a key value:
+echo "atom_live_$(openssl rand -base64 32 | tr '+/' '-_' | tr -d '=')"
+# add EXTERNAL_API_BOOTSTRAP_KEY=<that value> to the server .env, then redeploy.
+# Remove the var after the first boot once the key is stored.
 ```
 
 Scopes: `read` (GET), `write` (POST/DELETE), `admin` (implies both).

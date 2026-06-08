@@ -48,12 +48,14 @@ Accept: application/json`;
 const OPTIONAL_HEADERS = `X-Request-Id: <id>          # эхо в meta.request_id (иначе генерируется сам)
 Idempotency-Key: <unique>   # безопасные повторы POST/DELETE`;
 
-const KEYS_CLI = `# Локально / у оператора сервиса:
+const KEYS_CLI = `# Локально (из исходников) — через CLI:
 npx tsx scripts/apikey.ts create --name central-service --scopes read,write
-npx tsx scripts/apikey.ts bootstrap        # первый ключ на пустой БД
+npx tsx scripts/apikey.ts list
+npx tsx scripts/apikey.ts revoke --id key_xxx
 
-# В продакшене (внутри контейнера):
-docker exec atom-avatar-app node scripts/apikey.js create --name central --scopes read,write`;
+# В контейнерном проде — первый ключ через переменную окружения:
+# в server .env: EXTERNAL_API_BOOTSTRAP_KEY=<сырой ключ>
+# приложение само захеширует и создаст ключ при пустой БД на старте.`;
 
 const SUCCESS_ENVELOPE = `{
   "success": true,
