@@ -1,5 +1,4 @@
-import { sql } from 'drizzle-orm';
-import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { pgTable, text, timestamp, integer, jsonb, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
 // ── Domain unions (kept in sync with zod schemas + OpenAPI) ──────────────────
 export type ApiKeyStatus = 'active' | 'revoked' | 'expired';
@@ -13,20 +12,18 @@ export type GenerationStatus =
   | 'canceled';
 export type IdempotencyStatus = 'in_progress' | 'completed';
 
-const nowMs = sql`(unixepoch() * 1000)`;
-
-export const apiKeys = sqliteTable(
+export const apiKeys = pgTable(
   'api_keys',
   {
     id: text('id').primaryKey(),
     name: text('name').notNull(),
     keyPrefix: text('key_prefix').notNull(),
     keyHash: text('key_hash').notNull(),
-    scopes: text('scopes', { mode: 'json' }).$type<ApiScope[]>().notNull(),
+    scopes: jsonb('scopes').$type<ApiScope[]>().notNull(),
     status: text('status').$type<ApiKeyStatus>().notNull().default('active'),
-    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull().default(nowMs),
-    lastUsedAt: integer('last_used_at', { mode: 'timestamp_ms' }),
-    expiresAt: integer('expires_at', { mode: 'timestamp_ms' }),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+    lastUsedAt: timestamp('last_used_at', { withTimezone: true, mode: 'date' }),
+    expiresAt: timestamp('expires_at', { withTimezone: true, mode: 'date' }),
   },
   (t) => [
     uniqueIndex('api_keys_key_prefix_uidx').on(t.keyPrefix),
@@ -34,7 +31,7 @@ export const apiKeys = sqliteTable(
   ],
 );
 
-export const idempotencyKeys = sqliteTable(
+export const idempotencyKeys = pgTable(
   'idempotency_keys',
   {
     id: text('id').primaryKey(),
@@ -46,10 +43,10 @@ export const idempotencyKeys = sqliteTable(
     path: text('path').notNull(),
     requestHash: text('request_hash').notNull(),
     status: text('status').$type<IdempotencyStatus>().notNull().default('in_progress'),
-    responseJson: text('response_json', { mode: 'json' }).$type<unknown>(),
+    responseJson: jsonb('response_json').$type<unknown>(),
     statusCode: integer('status_code'),
-    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull().default(nowMs),
-    expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true, mode: 'date' }).notNull(),
   },
   (t) => [
     uniqueIndex('idempotency_keys_owner_uidx').on(t.apiKeyId, t.key),
@@ -57,7 +54,7 @@ export const idempotencyKeys = sqliteTable(
   ],
 );
 
-export const generations = sqliteTable(
+export const generations = pgTable(
   'generations',
   {
     id: text('id').primaryKey(),
@@ -69,11 +66,11 @@ export const generations = sqliteTable(
     model: text('model').notNull(),
     status: text('status').$type<GenerationStatus>().notNull().default('queued'),
     providerTaskId: text('provider_task_id'),
-    inputJson: text('input_json', { mode: 'json' }).$type<unknown>().notNull(),
-    resultJson: text('result_json', { mode: 'json' }).$type<unknown>(),
-    errorJson: text('error_json', { mode: 'json' }).$type<{ code: string; message: string } | null>(),
-    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull().default(nowMs),
-    updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull().default(nowMs),
+    inputJson: jsonb('input_json').$type<unknown>().notNull(),
+    resultJson: jsonb('result_json').$type<unknown>(),
+    errorJson: jsonb('error_json').$type<{ code: string; message: string } | null>(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
   },
   (t) => [
     index('generations_owner_created_idx').on(t.apiKeyId, t.createdAt, t.id),

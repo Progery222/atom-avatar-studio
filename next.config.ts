@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  serverExternalPackages: ["@libsql/client", "libsql"],
+  serverExternalPackages: ["pg"],
 };
 
 export default nextConfig;

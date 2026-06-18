@@ -180,7 +180,8 @@ The full specification is served at `GET /api/v1/openapi.json` (public).
 
 See `.env.example` — `EXTERNAL_API_ENABLED`, `EXTERNAL_API_RATE_LIMIT_PER_MINUTE`,
 `EXTERNAL_API_PUBLIC_BASE_URL`, `EXTERNAL_API_KEY_HASH_SECRET` (required), `DATABASE_URL`.
-For local dev use `DATABASE_URL=file:./.data/app.db`.
+The metadata store is PostgreSQL. For local dev start it with `docker compose up -d postgres`
+and use `DATABASE_URL=postgresql://atom:atom@localhost:5432/atom_api`.
 
 ### Running the tests
 

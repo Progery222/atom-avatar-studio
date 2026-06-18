@@ -36,17 +36,37 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
-      # External-API metadata DB (libSQL file) on a persistent volume.
-      - DATABASE_URL=file:/data/atom-api/app.db
-    volumes:
-      - atom_avatar_db:/data/atom-api
+      # External-API metadata DB (self-hosted Postgres service).
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     # Share the Tailscale container's network namespace so Funnel can reach the
     # app at 127.0.0.1:3000. Do NOT add a `ports:` block here — declare ports on
     # the `tailscale` service instead if host access is ever needed.
     network_mode: service:tailscale
     depends_on:
-      - tailscale
-      - minio
+      tailscale:
+        condition: service_started
+      minio:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Self-hosted PostgreSQL for the external-API metadata store (api keys,
+  # idempotency, generation jobs). Internal only — no published ports.
+  postgres:
+    image: postgres:16-alpine
+    container_name: atom-avatar-postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - atom_avatar_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     restart: unless-stopped
 
   # Self-hosted S3-compatible object storage. Internal only (no published ports);
@@ -66,4 +86,4 @@ services:
 volumes:
   atom_avatar_ts_state:
   atom_avatar_minio_data:
-  atom_avatar_db:
+  atom_avatar_pg_data:

@@ -8,6 +8,25 @@ services:
       - .env.local
     restart: unless-stopped
 
+  # Local PostgreSQL for the external-API metadata store.
+  postgres:
+    image: postgres:16-alpine
+    container_name: aura-dynamics-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-atom_api}
+      - POSTGRES_USER=${POSTGRES_USER:-atom}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-atom}
+    volumes:
+      - aura_dynamics_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-atom} -d ${POSTGRES_DB:-atom_api}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
   app:
     build:
       context: .
@@ -21,6 +40,13 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-atom}:${POSTGRES_PASSWORD:-atom}@postgres:5432/${POSTGRES_DB:-atom_api}
     depends_on:
-      - worker
+      worker:
+        condition: service_started
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  aura_dynamics_pg_data:
