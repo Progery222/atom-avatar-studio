@@ -530,14 +530,25 @@ export default function Home() {
                     <p>История пуста</p>
                   </div>
                 ) : (
-                  history.map((item, index) => (
+                  history.map((item, index) => {
+                    const resultUrl = item.resultVideoUrl || item.resultImageUrl;
+                    const previewSrc = item.resultImageUrl || item.inputImageUrl;
+                    return (
                     <div key={item.id || `hist_${item.timestamp}_${index}`} className="bg-white/5 border border-white/5 rounded-xl p-3 flex gap-4 hover:border-white/10 transition-colors">
                       <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-black/40 border border-white/5 relative">
-                        {item.inputImageUrl && <img src={item.inputImageUrl} className="w-full h-full object-cover opacity-60" />}
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        {previewSrc && (
+                          item.resultImageUrl ? (
+                            <a href={item.resultImageUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                              <img src={item.resultImageUrl} className="w-full h-full object-cover" />
+                            </a>
+                          ) : (
+                            <img src={item.inputImageUrl} className="w-full h-full object-cover opacity-60" />
+                          )
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           {item.status === 'pending' && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
                           {item.status === 'success' && item.resultVideoUrl && (
-                            <a href={item.resultVideoUrl} target="_blank" className="p-1.5 bg-primary rounded-full shadow-lg hover:scale-110 transition-transform">
+                            <a href={item.resultVideoUrl} target="_blank" className="pointer-events-auto p-1.5 bg-primary rounded-full shadow-lg hover:scale-110 transition-transform">
                               <Play className="w-3 h-3 fill-primary-foreground text-primary-foreground" />
                             </a>
                           )}
@@ -574,12 +585,13 @@ export default function Home() {
                             )}
                             <span className="text-[10px] text-white/30 font-mono opacity-50">{item.id}</span>
                           </div>
-                          {item.resultVideoUrl && (
-                            <a 
-                              href={item.resultVideoUrl} 
-                              download 
+                          {resultUrl && (
+                            <a
+                              href={resultUrl}
+                              download
                               className="text-[10px] text-primary hover:underline flex items-center gap-1"
                               target="_blank"
+                              rel="noopener noreferrer"
                             >
                               Открыть <ExternalLink className="w-2.5 h-2.5" />
                             </a>
@@ -587,7 +599,8 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </motion.div>
