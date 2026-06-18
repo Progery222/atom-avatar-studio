@@ -75,3 +75,33 @@ export async function getObject(
     size: stat.size,
   };
 }
+
+/** List all objects (recursively) under an optional key prefix. */
+export async function listObjects(
+  prefix = '',
+): Promise<Array<{ key: string; lastModified: Date; size: number }>> {
+  await ensureBucket();
+  const client = getClient();
+  return new Promise((resolve, reject) => {
+    const out: Array<{ key: string; lastModified: Date; size: number }> = [];
+    const stream = client.listObjectsV2(BUCKET, prefix, true);
+    stream.on('data', (obj) => {
+      if (obj.name) {
+        out.push({ key: obj.name, lastModified: obj.lastModified, size: obj.size });
+      }
+    });
+    stream.on('end', () => resolve(out));
+    stream.on('error', reject);
+  });
+}
+
+/** Delete a single stored object. */
+export async function removeObject(key: string): Promise<void> {
+  await getClient().removeObject(BUCKET, key);
+}
+
+/** Delete many stored objects in one batch. No-op on an empty list. */
+export async function removeObjects(keys: string[]): Promise<void> {
+  if (keys.length === 0) return;
+  await getClient().removeObjects(BUCKET, keys);
+}
