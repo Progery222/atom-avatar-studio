@@ -1,0 +1,43 @@
+# Coolify deployment for atom-avatar-studio (app + internal MinIO; no Tailscale sidecar).
+# Public access via Cloudflare Tunnel: avatar.atom-farm.com -> localhost:8093.
+# MinIO stays internal (no published ports); the app serves files via /api/files/<key>.
+# The Python worker/ is intentionally not deployed (matches docker-compose.prod.yml).
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: atom-avatar-app
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      # External-API metadata DB (libSQL file) on a persistent volume.
+      - DATABASE_URL=file:/data/atom-api/app.db
+    ports:
+      - "8093:3000"          # host 8093 -> Cloudflare route avatar.atom-farm.com
+    volumes:
+      - atom_avatar_db:/data/atom-api
+    depends_on:
+      - minio
+    restart: unless-stopped
+
+  # Self-hosted S3-compatible object storage. Internal only (no published ports);
+  # the app reads/writes via the compose network and serves files publicly through
+  # its own /api/files/<key> route.
+  minio:
+    image: minio/minio:latest
+    container_name: atom-avatar-minio
+    command: server /data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - atom_avatar_minio_data:/data
+    restart: unless-stopped
+
+volumes:
+  atom_avatar_db:
+  atom_avatar_minio_data:
